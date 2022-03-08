@@ -77,4 +77,12 @@ public class ExerciseServiceImpl implements ExerciseService {
         repository.delete(exercise);
         return exercise;
     }
+
+    @Override
+    public Exercise addComment(Long id, Comment comment) throws InvalidExerciseIdException {
+        Exercise exercise = repository.findById(id).orElseThrow(InvalidExerciseIdException::new);
+        exercise.getComments().add(comment);
+        repository.save(exercise);
+        return exercise;
+    }
 }

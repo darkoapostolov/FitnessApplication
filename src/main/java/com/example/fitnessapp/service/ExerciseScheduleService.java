@@ -9,9 +9,10 @@ import java.util.List;
 
 @Service
 public interface ExerciseScheduleService {
-    public List<ExerciseSchedule> listAll();
-    public ExerciseSchedule findById(Long Id) throws InvalidExerciseScheduleIdException;
-    public ExerciseSchedule create(List<Exercise> exercises);
-    public ExerciseSchedule edit(Long id, List<Exercise> exercises) throws InvalidExerciseScheduleIdException;
-    public ExerciseSchedule delete(Long id) throws InvalidExerciseScheduleIdException;
+    List<ExerciseSchedule> listAll();
+    ExerciseSchedule findById(Long Id) throws InvalidExerciseScheduleIdException;
+    ExerciseSchedule create(List<Exercise> exercises);
+    ExerciseSchedule edit(Long id, List<Exercise> exercises) throws InvalidExerciseScheduleIdException;
+    ExerciseSchedule delete(Long id) throws InvalidExerciseScheduleIdException;
+    ExerciseSchedule addExercise(Long id, Exercise exercise) throws InvalidExerciseScheduleIdException;
 }

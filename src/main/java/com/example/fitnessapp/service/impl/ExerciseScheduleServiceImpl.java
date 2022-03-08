@@ -49,4 +49,12 @@ public class ExerciseScheduleServiceImpl implements ExerciseScheduleService {
         repository.delete(exerciseSchedule);
         return exerciseSchedule;
     }
+
+    @Override
+    public ExerciseSchedule addExercise(Long id, Exercise exercise) throws InvalidExerciseScheduleIdException {
+        ExerciseSchedule exerciseSchedule = repository.findById(id).orElseThrow(InvalidExerciseScheduleIdException::new);
+        exerciseSchedule.getExercises().add(exercise);
+        repository.save(exerciseSchedule);
+        return exerciseSchedule;
+    }
 }
