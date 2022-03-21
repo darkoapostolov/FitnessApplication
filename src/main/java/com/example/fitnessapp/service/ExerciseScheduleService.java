@@ -10,6 +10,7 @@ import java.util.List;
 @Service
 public interface ExerciseScheduleService {
     List<ExerciseSchedule> listAll();
+    List<Exercise> listExercises(Long id) throws InvalidExerciseScheduleIdException;
     ExerciseSchedule findById(Long Id) throws InvalidExerciseScheduleIdException;
     ExerciseSchedule create(List<Exercise> exercises);
     ExerciseSchedule edit(Long id, List<Exercise> exercises) throws InvalidExerciseScheduleIdException;

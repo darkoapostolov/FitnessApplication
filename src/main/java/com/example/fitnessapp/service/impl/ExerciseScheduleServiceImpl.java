@@ -24,6 +24,12 @@ public class ExerciseScheduleServiceImpl implements ExerciseScheduleService {
     }
 
     @Override
+    public List<Exercise> listExercises(Long id) throws InvalidExerciseScheduleIdException {
+        ExerciseSchedule exerciseSchedule = repository.findById(id).orElseThrow(InvalidExerciseScheduleIdException::new);
+        return exerciseSchedule.getExercises();
+    }
+
+    @Override
     public ExerciseSchedule findById(Long Id) throws InvalidExerciseScheduleIdException {
         return repository.findById(Id).orElseThrow(InvalidExerciseScheduleIdException::new);
     }
