@@ -10,6 +10,7 @@ import java.util.List;
 
 @Service
 public interface ExerciseService {
+    List<Exercise> findAll();
     Exercise findById(Long id) throws InvalidExerciseIdException;
     Exercise findByName(String name);
     Exercise findByType(Type type);

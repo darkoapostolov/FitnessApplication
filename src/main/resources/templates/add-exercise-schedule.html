@@ -1,0 +1,36 @@
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">FITNESS APP</h1>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <form action="/schedules/{id}/add-exercise" method="POST">
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select name="category" class="form-control">
+                            <option th:if="${product} != null"
+                                    th:selected="${product.getCategory() != null && product.getCategory().getId() == cat.getId()}"
+                                    th:each="cat : ${categories}"
+                                    th:value="${cat.getId()}"
+                                    th:text="${cat.getName()}">
+                            </option>
+                            <option th:if="${product} == null"
+                                    th:each="cat : ${categories}"
+                                    th:value="${cat.getId()}"
+                                    th:text="${cat.getName()}">
+                            </option>
+                        </select>
+                    </div>
+                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                    <a type="button" class="btn btn-primary" href="/schedules">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</th:block>

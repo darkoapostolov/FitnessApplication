@@ -15,10 +15,16 @@ public class ExerciseSchedule {
     @GeneratedValue
     private Long id;
 
+    private String name;
+
+    private String difficulty;
+
     @ManyToMany
     private List<Exercise> exercises;
 
-    public ExerciseSchedule(List<Exercise> exercises) {
+    public ExerciseSchedule(String name, String difficulty, List<Exercise> exercises) {
+        this.name = name;
+        this.difficulty = difficulty;
         this.exercises = exercises;
     }
 

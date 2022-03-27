@@ -36,22 +36,22 @@ public class User {
     private boolean isCredentialsNonExpired = true;
     private boolean isEnabled = true;
 
-//    @Enumerated(value = EnumType.STRING)
-//    private Role role;
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
 
-    public User(String username, String password, List<ExerciseSchedule> exerciseSchedules, ExerciseSchedule favorites, BMI BMI) {
+    public User(String username, String password, List<ExerciseSchedule> exerciseSchedules, ExerciseSchedule favorites, Role role, BMI BMI) {
         this.username = username;
         this.password = password;
         this.exerciseSchedules = exerciseSchedules;
         this.favorites = favorites;
         this.BMI = BMI;
-//        this.role=role;
+        this.role=role;
     }
 
-    public User(String username, String password) {
+    public User(String username, String password, Role role) {
         this.username = username;
         this.password = password;
-//        this.role=role;
+        this.role=role;
     }
 
     public User() {

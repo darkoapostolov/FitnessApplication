@@ -20,6 +20,11 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
+    public List<Exercise> findAll() {
+        return repository.findAll();
+    }
+
+    @Override
     public Exercise findById(Long id) throws InvalidExerciseIdException {
         return repository.findById(id).orElseThrow(InvalidExerciseIdException::new);
     }

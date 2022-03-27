@@ -35,14 +35,14 @@ public class ExerciseScheduleServiceImpl implements ExerciseScheduleService {
     }
 
     @Override
-    public ExerciseSchedule create(List<Exercise> exercises) {
-        ExerciseSchedule exerciseSchedule = new ExerciseSchedule(exercises);
+    public ExerciseSchedule create(String name, String difficulty, List<Exercise> exercises) {
+        ExerciseSchedule exerciseSchedule = new ExerciseSchedule(name, difficulty, exercises);
         repository.save(exerciseSchedule);
         return exerciseSchedule;
     }
 
     @Override
-    public ExerciseSchedule edit(Long id, List<Exercise> exercises) throws InvalidExerciseScheduleIdException {
+    public ExerciseSchedule edit(Long id, String name, String difficulty, List<Exercise> exercises) throws InvalidExerciseScheduleIdException {
         ExerciseSchedule exerciseSchedule = repository.findById(id).orElseThrow(InvalidExerciseScheduleIdException::new);
         exerciseSchedule.setExercises(exercises);
         repository.save(exerciseSchedule);
@@ -57,7 +57,7 @@ public class ExerciseScheduleServiceImpl implements ExerciseScheduleService {
     }
 
     @Override
-    public ExerciseSchedule addExercise(Long id, Exercise exercise) throws InvalidExerciseScheduleIdException {
+    public ExerciseSchedule addExercise(Long id, String name, String difficulty, Exercise exercise) throws InvalidExerciseScheduleIdException {
         ExerciseSchedule exerciseSchedule = repository.findById(id).orElseThrow(InvalidExerciseScheduleIdException::new);
         exerciseSchedule.getExercises().add(exercise);
         repository.save(exerciseSchedule);
