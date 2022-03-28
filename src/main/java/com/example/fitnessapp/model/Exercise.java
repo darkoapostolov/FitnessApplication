@@ -42,6 +42,10 @@ public class Exercise {
         this.dislikes = dislikes;
     }
 
+    public Exercise(Exercise byId) {
+    }
+
     public Exercise() {
+
     }
 }

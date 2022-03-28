@@ -1,19 +1,24 @@
 package com.example.fitnessapp.web.controller;
 
+import com.example.fitnessapp.model.Comment;
 import com.example.fitnessapp.model.Exercise;
 import com.example.fitnessapp.model.ExerciseSchedule;
-import com.example.fitnessapp.model.User;
+//import com.example.fitnessapp.model.User;
+import com.example.fitnessapp.model.enumerations.Type;
 import com.example.fitnessapp.model.exceptions.InvalidExerciseIdException;
 import com.example.fitnessapp.model.exceptions.InvalidExerciseScheduleIdException;
 import com.example.fitnessapp.service.ExerciseScheduleService;
 import com.example.fitnessapp.service.ExerciseService;
+import com.example.fitnessapp.service.impl.ExerciseScheduleServiceImpl;
 import lombok.SneakyThrows;
-import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Id;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -29,8 +34,8 @@ public class ExerciseListController {
     }
 
     @SneakyThrows
-    @GetMapping("/schedules/exercise-list/{id}")
-    public String getExerciseList(@PathVariable Long id,
+    @GetMapping()
+    public String getExerciseList(
             @RequestParam(required = false) String error,
                                       HttpServletRequest req,
                                       Model model) {
@@ -38,19 +43,25 @@ public class ExerciseListController {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
         }
-        ExerciseSchedule exerciseSchedule = this.exerciseScheduleService.findById(id);
-        model.addAttribute("exercises", this.exerciseScheduleService.listExercises(exerciseSchedule.getId()));
+        model.addAttribute("exercises", this.exerciseService.findAll());
         model.addAttribute("bodyContent", "exercise-list");
         return "master-template";
     }
 
-    @PostMapping("/schedules/{id}/add-exercise")
-    public String addExercise(@PathVariable Long id, Long exerciseId, HttpServletRequest req, Authentication authentication) {
+    @GetMapping("/add-form")
+    public String addFormEx(Model model){
+        model.addAttribute("type", Type.values());
+        model.addAttribute("bodyContent", "add-exercises");
+        return "master-template";
+    }
+
+    @PostMapping("/add-exercise")
+    public String addExercise(@RequestParam(required = false) String name, int difficulty, Type type, String description, String image) {
         try {
-            Exercise exercise = this.exerciseService.findById(id);
-            this.exerciseScheduleService.addExercise(exerciseId, exercise);
+            List<Comment> comments = new ArrayList<>();
+            exerciseService.create(name, difficulty, type, description, image, comments, 0,0);
             return "redirect:/exercise-list";
-        } catch (RuntimeException | InvalidExerciseIdException | InvalidExerciseScheduleIdException exception) {
+        } catch (RuntimeException exception) {
             return "redirect:/exercise-list?error=" + exception.getMessage();
         }
     }

@@ -11,6 +11,7 @@ public class Comment {
     @GeneratedValue
     private Long id;
 
+
     @OneToOne
     private User user;
 

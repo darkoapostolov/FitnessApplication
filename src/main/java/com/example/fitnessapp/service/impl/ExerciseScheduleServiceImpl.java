@@ -2,7 +2,9 @@ package com.example.fitnessapp.service.impl;
 
 import com.example.fitnessapp.model.Exercise;
 import com.example.fitnessapp.model.ExerciseSchedule;
+import com.example.fitnessapp.model.exceptions.InvalidExerciseIdException;
 import com.example.fitnessapp.model.exceptions.InvalidExerciseScheduleIdException;
+import com.example.fitnessapp.repository.ExerciseRepository;
 import com.example.fitnessapp.repository.ExerciseScheduleRepository;
 import com.example.fitnessapp.service.ExerciseScheduleService;
 import org.springframework.stereotype.Service;
@@ -13,9 +15,11 @@ import java.util.List;
 public class ExerciseScheduleServiceImpl implements ExerciseScheduleService {
 
     private final ExerciseScheduleRepository repository;
+    private final ExerciseServiceImpl exerciseService;
 
-    public ExerciseScheduleServiceImpl(ExerciseScheduleRepository repository) {
+    public ExerciseScheduleServiceImpl(ExerciseScheduleRepository repository, ExerciseRepository exerciseRepository, ExerciseServiceImpl exerciseService) {
         this.repository = repository;
+        this.exerciseService = exerciseService;
     }
 
     @Override
@@ -57,9 +61,9 @@ public class ExerciseScheduleServiceImpl implements ExerciseScheduleService {
     }
 
     @Override
-    public ExerciseSchedule addExercise(Long id, String name, String difficulty, Exercise exercise) throws InvalidExerciseScheduleIdException {
+    public ExerciseSchedule addExercise(Long id, Long idEx) throws InvalidExerciseScheduleIdException, InvalidExerciseIdException {
         ExerciseSchedule exerciseSchedule = repository.findById(id).orElseThrow(InvalidExerciseScheduleIdException::new);
-        exerciseSchedule.getExercises().add(exercise);
+        exerciseSchedule.getExercises().add(new Exercise(exerciseService.findById(id)));
         repository.save(exerciseSchedule);
         return exerciseSchedule;
     }

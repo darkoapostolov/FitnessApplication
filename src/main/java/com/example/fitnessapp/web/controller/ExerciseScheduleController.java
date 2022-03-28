@@ -5,7 +5,7 @@ import com.example.fitnessapp.model.ExerciseSchedule;
 import com.example.fitnessapp.model.exceptions.InvalidExerciseScheduleIdException;
 import com.example.fitnessapp.service.ExerciseScheduleService;
 import com.example.fitnessapp.service.ExerciseService;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,18 +32,18 @@ public class ExerciseScheduleController {
         }
         List<ExerciseSchedule> schedules = this.exerciseScheduleService.listAll();
         model.addAttribute("schedules", schedules);
-        model.addAttribute("bodyContent", "schedules");
+        model.addAttribute("bodyContent", "schedule-list");
         return "master-template";
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteProduct(@PathVariable Long id) throws InvalidExerciseScheduleIdException {
+    public String deleteSchedule(@PathVariable Long id) throws InvalidExerciseScheduleIdException {
         this.exerciseScheduleService.delete(id);
         return "redirect:/schedules";
     }
 
     @GetMapping("/edit-schedule/{id}")
-    public String editProductPage(@PathVariable Long id, Model model) throws InvalidExerciseScheduleIdException {
+    public String editSchedulePage(@PathVariable Long id, Model model) throws InvalidExerciseScheduleIdException {
             ExerciseSchedule schedule = this.exerciseScheduleService.findById(id);
             model.addAttribute("schedule", schedule);
             model.addAttribute("bodyContent", "add-product");
@@ -51,23 +51,23 @@ public class ExerciseScheduleController {
     }
 
     @GetMapping("/add-schedule")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String addProductPage(Model model) {
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String addSchedulePage(Model model) {
        List<Exercise> exercises = this.exerciseService.findAll();
        model.addAttribute("excercises", exercises);
-       model.addAttribute("bodyContent", "add-schedule");
+       model.addAttribute("bodyContent", "add-exercise-schedule");
        return "master-template";
     }
 
     @PostMapping("/add")
-    public String saveProduct(
+    public String saveSchedule(
             @RequestParam(required = false) Long id,
-            @RequestParam String name, @RequestParam String difficulty,
-            @RequestParam List<Exercise> exercises) throws InvalidExerciseScheduleIdException {
+            String name,
+            String difficulty) throws InvalidExerciseScheduleIdException {
         if (id != null) {
-            this.exerciseScheduleService.edit(id, name ,difficulty exercises);
+            this.exerciseScheduleService.edit(id, name ,difficulty, exerciseScheduleService.findById(id).getExercises());
         } else {
-            //this.exerciseScheduleService.addExercise(id, name, difficulty, exercise);
+//            this.exerciseScheduleService.addExercise(id, );
         }
         return "redirect:/schedules";
     }

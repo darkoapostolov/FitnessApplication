@@ -8,6 +8,7 @@
 
     <div class="container mb-4">
         <div class="row">
+            <a href="/exercise-list/add-form">Add Exercise</a>
             <div class="col-12" th:if="${schedules.size() > 0}">
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -22,7 +23,7 @@
                             <td th:text="${schedule.getName()}"></td>
                             <td th:text="${schedule.getDifficulty()}"></td>
                             <td class="text-right">
-                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+<!--                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
                                     <form th:action="@{'/schedules/delete/{id}' (id=${schedule.getId()})}"
                                           th:method="DELETE">
                                         <button type="submit"
@@ -30,16 +31,16 @@
                                             <i class="fa fa-trash">Delete</i>
                                         </button>
                                     </form>
-                                </th:block>
-                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+<!--                                </th:block>-->
+<!--                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
                                     <a th:href="@{'/schedules/edit-schedules/{id}' (id=${schedule.getId()})}"
                                        class="btn btn-sm btn-info edit-product">
                                         <i class="fa fa-trash">Edit</i>
                                     </a>
-                                </th:block>
+<!--                                </th:block>-->
                                 <form th:action="@{'/schedules/{id}/add-exercise' (id=${schedule.getId()})}"
-                                      th:method="POST"
-                                      sec:authorize="isAuthenticated()">
+                                      th:method="POST">
+<!--                                      sec:authorize="isAuthenticated()">-->
                                     <button type="submit"
                                             class="btn btn-sm btn-primary cart-product">
                                         <i class="fa fa-trash">Add exercise</i>
@@ -53,9 +54,9 @@
             </div>
             <div class="col mb-3">
                 <div class="row">
-                    <div class="col-sm-12 col-md-12" sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a href="/products/add-form" class="btn btn-block btn-dark add-product-btn">
-                            Add new product
+<!--                    <div class="col-sm-12 col-md-12" sec:authorize="hasRole('ROLE_ADMIN')">-->
+                        <a href="/schedules/add-schedule" class="btn btn-block btn-dark add-product-btn">
+                            Add new Schedule
                         </a>
                     </div>
                 </div>

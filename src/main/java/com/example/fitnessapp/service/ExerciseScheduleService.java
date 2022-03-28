@@ -2,6 +2,7 @@ package com.example.fitnessapp.service;
 
 import com.example.fitnessapp.model.Exercise;
 import com.example.fitnessapp.model.ExerciseSchedule;
+import com.example.fitnessapp.model.exceptions.InvalidExerciseIdException;
 import com.example.fitnessapp.model.exceptions.InvalidExerciseScheduleIdException;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +16,5 @@ public interface ExerciseScheduleService {
     ExerciseSchedule create(String name, String difficulty, List<Exercise> exercises);
     ExerciseSchedule edit(Long id, String name, String difficulty, List<Exercise> exercises) throws InvalidExerciseScheduleIdException;
     ExerciseSchedule delete(Long id) throws InvalidExerciseScheduleIdException;
-    ExerciseSchedule addExercise(Long id, String name, String difficulty, Exercise exercise) throws InvalidExerciseScheduleIdException;
+    ExerciseSchedule addExercise(Long id, Long idEx) throws InvalidExerciseScheduleIdException, InvalidExerciseIdException;
 }
