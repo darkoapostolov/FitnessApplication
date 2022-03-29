@@ -1,14 +1,40 @@
 <div xmlns:th="http://www.thymeleaf.org">
 
     <style>
-        img{
-            height: 100px;
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            height: 110px;
         }
-        ul{
+
+        ul {
             list-style: none;
-            display: inline-block;
+            display: inline-grid;
+            grid-auto-columns: 300px;
+        }
+        h5{
+            text-align: center;
+            font-size: 20px;
+        }
+        li{
+            padding-bottom: 5px;
+        }
+        .exBlock {
+            border-radius: 15px;
+            border: 5px solid darkslategray;
+            width: 100%;
+            padding: 10px;
+        }
+
+        .exBlock:hover {
+            background: darkgray;
+            padding: 15px;
+            border-radius: 5px;
+            border-color: black;
         }
     </style>
+
 
     <section class="jumbotron text-center">
         <div class="container">
@@ -25,42 +51,50 @@
         <div class="row">
             <div class="col-12" th:if="${exercises.size() > 0}">
                 <div class="table-responsive">
-                        <ul th:each="exercise : ${exercises}" class="cart-item">
-                            <div style="border-radius: 15px; border: 5px solid darkslategray; width: 300px">
-                                <ul>
-                            <li  th:text="${exercise.getName()}"></li>
-                            <li th:text="${exercise.getDifficulty()}"> </li>
-                             <li th:text="${exercise.getType()}" ></li>
-                             <li><img th:src="${exercise.getImage()}"></li>
-                             <li th:text="${exercise.getLikes()}"></li>
-                             <li th:text="${exercise.getDislikes()}"></li>
-                             <li>
-                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                                    <form th:action="@{'/schedules/exercise/{id}/delete/' (id=${exercise.getId()})}"
-                                          th:method="DELETE">
-                                        <button type="submit"
-                                                class="btn btn-sm btn-danger delete-product">
-                                            <i class="fa fa-trash">Delete</i>
-                                        </button>
-                                    </form>
-                                </th:block>
-                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                                    <a th:href="@{'/schedules/exercise/{id}/edit-form/' (id=${exercise.getId()})}"
-                                       class="btn btn-sm btn-info edit-product">
-                                        <i class="fa fa-trash">Edit</i>
-                                    </a>
-                                </th:block>
-                             </li>
-                                </ul>
-                            </div>
-                            </ul>
+                    <ul th:each="exercise : ${exercises}" class="cart-item">
+                        <div class="exBlock">
+                                <h5 th:text="${exercise.getName()}"></h5>
+                                <img th:src="${exercise.getImage()}">
+<!--                                <li th:text="${exercise.getReps()}"></li>-->
+                                <b style="position: absolute">Difficulty: </b><p style="text-align: right"><th:block th:text=" ${exercise.getDifficulty()}"></th:block></p>
+<!--                                <li th:text="${exercise.getType()}"></li>-->
+<!--                                <li th:text="${exercise.getLikes()}"></li>-->
+<!--                                <li th:text="${exercise.getDislikes()}"></li>-->
+                                <div style="display: flex; flex-direction: inherit">
+                                    <li>
+                                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                        <form th:action="@{'/schedules/exercise/{id}/delete/' (id=${exercise.getId()})}"
+                                              th:method="DELETE">
+                                            <button type="submit"
+                                                    class="btn btn-sm btn-danger delete-product">
+                                                <i class="fa fa-trash">Delete</i>
+                                            </button>
+                                        </form>
+                                    </th:block>
+                                </li>
+                                    <li>
+                                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                        <a th:href="@{'/schedules/exercise/{id}/edit-form/' (id=${exercise.getId()})}"
+                                           class="btn btn-sm btn-warning edit-product">
+                                            <i class="fa fa-trash">Edit</i>
+                                        </a>
+                                    </th:block>
+                                    </li>
+                                    <li>
+                                    <th:block>
+                                        <a th:href="@{'/exercise-list/exercise/{id}/details/' (id=${exercise.getId()})}"
+                                           class="btn btn-sm btn-info">
+                                            <i class="fa fa-trash">Details</i>
+                                        </a>
+                                    </th:block>
+                                </li>
+
+                                </div>
+                        </div>
+                    </ul>
 
                 </div>
             </div>
         </div>
     </div>
-<div>
-
-
-
-
+</div>

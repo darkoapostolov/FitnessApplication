@@ -56,14 +56,22 @@ public class ExerciseListController {
     }
 
     @PostMapping("/add-exercise")
-    public String addExercise(@RequestParam(required = false) String name, int difficulty, Type type, String description, String image) {
+    public String addExercise(@RequestParam(required = false) String name, int reps, int difficulty, Type type, String description, String image) {
         try {
             List<Comment> comments = new ArrayList<>();
-            exerciseService.create(name, difficulty, type, description, image, comments, 0,0);
+            exerciseService.create(name, reps, difficulty, type, description, image, comments, 0,0);
             return "redirect:/exercise-list";
         } catch (RuntimeException exception) {
             return "redirect:/exercise-list?error=" + exception.getMessage();
         }
+    }
+
+    @GetMapping("/exercise/{id}/details/")
+    public String detailsExercise(@PathVariable Long id, Model model) throws InvalidExerciseIdException {
+        Exercise exercise = exerciseService.findById(id);
+        model.addAttribute("exercise", exercise);
+        model.addAttribute("bodyContent", "details-exercise");
+        return "master-template";
     }
 
     @DeleteMapping("/schedules/exercise/{id}/delete/")

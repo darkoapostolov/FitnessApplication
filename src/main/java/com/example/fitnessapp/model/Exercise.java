@@ -15,6 +15,8 @@ public class Exercise {
 
     private String name;
 
+    int reps;
+
     private int difficulty;
 
     @Enumerated(value = EnumType.STRING)
@@ -31,8 +33,9 @@ public class Exercise {
 
     private int dislikes;
 
-    public Exercise(String name, int difficulty, Type type, String description, String image, List<Comment> comments, int likes, int dislikes) {
+    public Exercise(String name, int reps, int difficulty, Type type, String description, String image, List<Comment> comments, int likes, int dislikes) {
         this.name = name;
+        this.reps = reps;
         this.difficulty = difficulty;
         this.type = type;
         this.description = description;

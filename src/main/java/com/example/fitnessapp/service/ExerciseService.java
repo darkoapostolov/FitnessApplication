@@ -17,7 +17,7 @@ public interface ExerciseService {
     Exercise findByDifficulty(int difficulty);
     Exercise findByNumLikes(int likes);
     Exercise findByNumDislikes(int dislikes);
-    Exercise create(String name, int difficulty, Type type, String description, String image, List<Comment> comments, int likes, int dislikes);
+    Exercise create(String name, int reps, int difficulty, Type type, String description, String image, List<Comment> comments, int likes, int dislikes);
     Exercise edit(Long id, String name, int difficulty, Type type, String description, String image, List<Comment> comments, int likes, int dislikes) throws InvalidExerciseIdException;
     Exercise delete(Long id) throws InvalidExerciseIdException;
     Exercise addComment (Long id, Comment comment) throws InvalidExerciseIdException;

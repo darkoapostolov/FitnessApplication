@@ -21,6 +21,15 @@
                                placeholder="Enter exercise name">
                     </div>
                     <div class="form-group">
+                        <label for="reps">Reps</label>
+                        <input type="number"
+                               class="form-control"
+                               id="reps"
+                               name="reps"
+                               th:value="(${exercise} != null ? ${exercise.getReps()} : '')"
+                               placeholder="Reps">
+                    </div>
+                    <div class="form-group">
                         <label for="difficulty">Difficulty</label>
                         <input type="number"
                                class="form-control"

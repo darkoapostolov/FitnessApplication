@@ -55,8 +55,8 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public Exercise create(String name, int difficulty, Type type, String description, String image, List<Comment> comments, int likes, int dislikes) {
-        Exercise exercise = new Exercise(name, difficulty, type, description, image, comments, likes, dislikes);
+    public Exercise create(String name, int reps, int difficulty, Type type, String description, String image, List<Comment> comments, int likes, int dislikes) {
+        Exercise exercise = new Exercise(name, reps, difficulty, type, description, image, comments, likes, dislikes);
         repository.save(exercise);
         return exercise;
     }
