@@ -26,23 +26,47 @@
             -webkit-text-stroke-color: black;
         }
         .exBlock {
-            /*background-image: url("https://st3.depositphotos.com/10953878/15049/i/450/depositphotos_150499078-stock-photo-seamless-shiny-green-diagonal-lines.jpg");*/
+            background: white;
             border-radius: 15px;
             border: 5px solid darkslategray;
             width: 100%;
+            height: 200px;
             padding: 10px;
-            transition: width 2s, height 2s, transform 0.2s;
+            transition: width 1.2s, height 1.2s, transform 0.5s;
         }
         .exBlock:hover {
-            background-image: url("https://i.pinimg.com/736x/bb/c9/4c/bbc94ccf0691750700b5a5321f4f56aa--diagonal-abstract.jpg");
+            background: lightgray;
             padding: 15px;
             border-radius: 5px;
             border-color: black;
-            width: 300px;
-            height: 300px;
-            transform: rotate(360deg);
+            width: 320px;
+            height: 250px;
+            /*transform: rotate(-5deg);*/
+        }
+        #addButton{
+            text-align: center;
+            border: 2px solid black;
+            width: 115px;
+            position: relative;
+            left: 4%;
+            height: 30px;
+            background: white;
+            border-radius: 5px;
+            transition: height 0.3s, width 0.3s;
+        }
+        #addButton>a{
+            color: black;
+            text-decoration: none;
+        }
+        #addButton:hover{
+            width: 116px;
+            height: 31px;
+            background: darkgray;
+            transition: height 0.3s, width 0.3s;
         }
     </style>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <section class="jumbotron text-center">
         <div class="container">
@@ -50,7 +74,6 @@
             <h3 class="jumbotron-heading">Exercises</h3>
         </div>
     </section>
-
     <div th:if="${hasError}">
         <h5 class="text-center text-danger" th:text="${error}"></h5>
     </div>
@@ -59,7 +82,14 @@
         <div class="row">
             <div class="col-12" th:if="${exercises.size() > 0}">
                 <div class="table-responsive">
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                    <div id="addButton">
+                        <a href="/exercise-list/add-form">Add Exercise</a>
+                    </div>
+                    </th:block>
+                    <br>
                     <ul th:each="exercise : ${exercises}" class="cart-item">
+
                         <div>
                         <div class="exBlock">
                                 <h5 th:text="${exercise.getName()}"></h5>
@@ -69,7 +99,7 @@
 <!--                                <li th:text="${exercise.getType()}"></li>-->
 <!--                                <li th:text="${exercise.getLikes()}"></li>-->
 <!--                                <li th:text="${exercise.getDislikes()}"></li>-->
-                                <div style="display: flex; flex-direction: inherit">
+                                <div class="buttonBlock">
                                     <li>
                                     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                                         <form th:action="@{'/schedules/exercise/{id}/delete/' (id=${exercise.getId()})}"
@@ -107,4 +137,27 @@
             </div>
         </div>
     </div>
+    <script>
+            $(".buttonBlock").hide();
+            // var a = "https://st3.depositphotos.com/10953878/15049/i/450/depositphotos_150498978-stock-photo-seamless-festive-green-diagonal-lines.jpg";
+            $('.buttonBlock').each(function (i, element) {
+                $(".exBlock").on({
+                    mouseenter: function () {
+                        var r = Math.floor(Math.random()*1000)
+                        if (r%2==0){
+                            $(this).css("transform","rotate(10deg)")
+                        }else {
+                            $(this).css("transform","rotate(-10deg)")
+                        }
+                        // $(this).css('background-image', 'url(' + a + ')');
+                        $(this).find('.buttonBlock').fadeIn(1000);
+                        $(this).find('.buttonBlock').css("display", "flex");
+                    },
+                    mouseleave: function () {
+                        $(this).css("transform","rotate(0deg)")
+                        $(this).find('.buttonBlock').fadeOut(200);
+                    }
+                });
+            });
+    </script>
 </div>
