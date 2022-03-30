@@ -107,7 +107,7 @@
                                 <div class="buttonBlock">
                                     <li>
                                     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                                        <form th:action="@{'/schedules/exercise/{id}/delete/' (id=${exercise.getId()})}"
+                                        <form th:action="@{'/exercise-list/exercise/{id}/delete/' (id=${exercise.getId()})}"
                                               th:method="DELETE">
                                             <button type="submit"
                                                     class="btn btn-sm btn-danger delete-product">
@@ -118,7 +118,7 @@
                                 </li>
                                     <li>
                                     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                                        <a th:href="@{'/schedules/exercise/{id}/edit-form/' (id=${exercise.getId()})}"
+                                        <a th:href="@{'/exercise-list/exercise/{id}/edit/' (id=${exercise.getId()})}"
                                            class="btn btn-sm btn-warning edit-product">
                                             <i class="fa fa-trash">Edit</i>
                                         </a>

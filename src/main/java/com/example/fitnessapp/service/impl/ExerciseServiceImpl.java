@@ -62,10 +62,11 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public Exercise edit(Long id, String name, int difficulty, Type type, String description, String image, List<Comment> comments, int likes, int dislikes) throws InvalidExerciseIdException {
+    public Exercise edit(Long id, String name,int reps, int difficulty, Type type, String description, String image, List<Comment> comments, int likes, int dislikes) throws InvalidExerciseIdException {
         Exercise exercise = repository.findById(id).orElseThrow(InvalidExerciseIdException::new);
         exercise.setName(name);
         exercise.setDifficulty(difficulty);
+        exercise.setReps(reps);
         exercise.setType(type);
         exercise.setDescription(description);
         exercise.setImage(image);

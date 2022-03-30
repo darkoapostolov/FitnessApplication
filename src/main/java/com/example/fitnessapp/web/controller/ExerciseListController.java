@@ -29,16 +29,16 @@ public class ExerciseListController {
     private final ExerciseService exerciseService;
 
     public ExerciseListController(ExerciseScheduleService exerciseScheduleService, ExerciseService exerciseService) {
-        this.exerciseScheduleService =  exerciseScheduleService;
-        this.exerciseService =  exerciseService;
+        this.exerciseScheduleService = exerciseScheduleService;
+        this.exerciseService = exerciseService;
     }
 
     @SneakyThrows
     @GetMapping()
     public String getExerciseList(
             @RequestParam(required = false) String error,
-                                      HttpServletRequest req,
-                                      Model model) {
+            HttpServletRequest req,
+            Model model) {
         if (error != null && !error.isEmpty()) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
@@ -49,20 +49,25 @@ public class ExerciseListController {
     }
 
     @GetMapping("/add-form")
-    public String addFormEx(Model model){
+    public String addFormEx(Model model) {
         model.addAttribute("type", Type.values());
         model.addAttribute("bodyContent", "add-exercises");
         return "master-template";
     }
 
     @PostMapping("/add-exercise")
-    public String addExercise(@RequestParam(required = false) String name, int reps, int difficulty, Type type, String description, String image) {
-        try {
-            List<Comment> comments = new ArrayList<>();
-            exerciseService.create(name, reps, difficulty, type, description, image, comments, 0,0);
+    public String addExercise(@RequestParam(required = false) Long id, String name, int reps, int difficulty, Type type, String description, String image) throws InvalidExerciseIdException {
+        if (id != null) {
+            Exercise exercise = exerciseService.findById(id);
+            List<Comment> comments = exercise.getComments();
+            int likes = exercise.getLikes();
+            int dislikes = exercise.getDislikes();
+            exerciseService.edit(id, name, reps, difficulty, type, description, image, comments, likes, dislikes);
             return "redirect:/exercise-list";
-        } catch (RuntimeException exception) {
-            return "redirect:/exercise-list?error=" + exception.getMessage();
+        } else {
+            List<Comment> comments = new ArrayList<>();
+            exerciseService.create(name, reps, difficulty, type, description, image, comments, 0, 0);
+            return "redirect:/exercise-list";
         }
     }
 
@@ -74,33 +79,18 @@ public class ExerciseListController {
         return "master-template";
     }
 
-    @DeleteMapping("/schedules/exercise/{id}/delete/")
+    @DeleteMapping("/exercise/{id}/delete/")
     public String deleteExercise(@PathVariable Long id) throws InvalidExerciseIdException {
         this.exerciseService.delete(id);
-        return "redirect:/products";
+        return "redirect:/exercise-list";
     }
 
-    @GetMapping("/schedules/exercise/{id}/edit-form/")
-    public String editExercise(@PathVariable Long id, Model model) throws InvalidExerciseIdException {
+    @GetMapping("/exercise/{id}/edit/")
+    public String editFormExercise(@PathVariable Long id, Model model) throws InvalidExerciseIdException {
         Exercise exercise = this.exerciseService.findById(id);
         model.addAttribute("exercise", exercise);
-        model.addAttribute("bodyContent", "add-exercise");
+        model.addAttribute("type", Type.values());
+        model.addAttribute("bodyContent", "add-exercises");
         return "master-template";
     }
-
-//    @PostMapping("/add")
-//    public String saveExercise(
-//            @RequestParam(required = false) Long id,
-//            @RequestParam String name,
-//            @RequestParam Double price,
-//            @RequestParam Integer quantity,
-//            @RequestParam Long category,
-//            @RequestParam Long manufacturer) {
-//        if (id != null) {
-//            this.productService.edit(id, name, price, quantity, category, manufacturer);
-//        } else {
-//            this.productService.save(name, price, quantity, category, manufacturer);
-//        }
-//        return "redirect:/products";
-//    }
 }
