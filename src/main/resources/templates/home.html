@@ -1,6 +1,11 @@
 <div>
     <style>
         h1{
+
+            position: absolute;
+            top: 150px;
+            left: 38%;
+            text-align: center;
             width: 300px;
             border-radius: 20px;
             margin-left:auto;
@@ -8,12 +13,98 @@
             border: 5px solid black ;
             background: lightgray
         }
+        #section{
+            background-image: url('https://pbs.twimg.com/media/ErFxLMMXUAISHyI?format=jpg&name=large');
+            background-repeat: no-repeat;
+            height: 600px;
+            background-size: cover;
+        }
+        #anchor{
+            text-align: center;
+            color: black;
+            /*border: 3px solid black;*/
+            box-shadow: 1px 1px 30px #0000003e;
+            padding: 3px;
+            border-radius: 15px;
+            background: white;
+            position: absolute;
+            top: 590px;
+            font-weight: bold;
+            left: 70%;
+            font-size: 25px;
+            transition: 0.6s;
+        }
+        #anchor:hover{
+            box-shadow: 1px 1px 60px #0000006e;
+            margin-left: -3px;
+            padding: 6px;
+            border-radius: 10px;
+            text-decoration: none;
+        }
+        #p1{
+            position: absolute;
+            top: 120px;
+            left: 260px;
+            width: 150px;
+            font-family: "Monotype Corsiva";
+            font-size: 40px;
+            color: white;
+        }
+        #p2{
+            position: absolute;
+            top: 200px;
+            right: 250px;
+            width: 150px;
+            font-family: "Monotype Corsiva";
+            font-size: 40px;
+            color: white;
+        }
+        #p3{
+            position: absolute;
+            top: 410px;
+            left: 220px;
+            width: 150px;
+            font-family: "Monotype Corsiva";
+            font-size: 40px;
+            color: white;
+        }
+        #p4{
+            position: absolute;
+            top: 465px;
+            right: 220px;
+            width: 150px;
+            font-family: "Monotype Corsiva";
+            font-size: 40px;
+            color: white;
+        }
     </style>
-<section style="height:550px; background-image: url('https://c.tenor.com/yn9KemXo1FYAAAAd/giga-chad.gif')" class="jumbotron text-center" xmlns:th="http://www.thymeleaf.org">
+    <div id="section">
+<section id="section2" style="height:600px; background-image: url('https://c.tenor.com/yn9KemXo1FYAAAAd/giga-chad.gif')" class="jumbotron text-center" xmlns:th="http://www.thymeleaf.org">
     <div class="container">
         <h1 class="jumbotron-heading">FITNESS APP</h1>
     </div>
 </section>
+        <div id="divAnc"><a id="anchor" href="/schedules" >GET STARTED→</a></div>
+        <div id="p1"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unlock your inner strength.</p></div>
+        <div id="p2"><p>The power &nbsp;&nbsp;is within &nbsp;&nbsp;you.</p></div>
+        <div id="p3"><p>Strength is earned not given.</p></div>
+        <div id="p4"><p>Greatness awaits...</p></div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#divAnc").hide();
+            $("#p1").hide();
+            $("#p2").hide();
+            $("#p3").hide();
+            $("#p4").hide();
+            $("#section2").fadeOut(6000);
+            $("#divAnc").delay(8000).fadeIn(1000);
+            $("#p1").delay(4000).fadeIn(1000);
+            $("#p2").delay(5000).fadeIn(1000);
+            $("#p3").delay(6000).fadeIn(1000);
+            $("#p4").delay(7000).fadeIn(1000);
+        });
+    </script>
 </div>
 
 
