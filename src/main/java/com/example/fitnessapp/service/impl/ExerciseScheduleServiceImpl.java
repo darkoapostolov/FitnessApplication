@@ -2,6 +2,7 @@ package com.example.fitnessapp.service.impl;
 
 import com.example.fitnessapp.model.Exercise;
 import com.example.fitnessapp.model.ExerciseSchedule;
+import com.example.fitnessapp.model.enumerations.Type;
 import com.example.fitnessapp.model.exceptions.InvalidExerciseIdException;
 import com.example.fitnessapp.model.exceptions.InvalidExerciseScheduleIdException;
 import com.example.fitnessapp.repository.ExerciseRepository;
@@ -39,8 +40,8 @@ public class ExerciseScheduleServiceImpl implements ExerciseScheduleService {
     }
 
     @Override
-    public ExerciseSchedule create(String name, String difficulty, List<Exercise> exercises) {
-        ExerciseSchedule exerciseSchedule = new ExerciseSchedule(name, difficulty, exercises);
+    public ExerciseSchedule create(String name, String difficulty, List<Exercise> exercises, Type type) {
+        ExerciseSchedule exerciseSchedule = new ExerciseSchedule(name, difficulty, exercises, type);
         repository.save(exerciseSchedule);
         return exerciseSchedule;
     }

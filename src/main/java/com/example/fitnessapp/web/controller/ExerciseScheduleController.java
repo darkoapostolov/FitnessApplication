@@ -2,6 +2,7 @@ package com.example.fitnessapp.web.controller;
 
 import com.example.fitnessapp.model.Exercise;
 import com.example.fitnessapp.model.ExerciseSchedule;
+import com.example.fitnessapp.model.exceptions.InvalidExerciseIdException;
 import com.example.fitnessapp.model.exceptions.InvalidExerciseScheduleIdException;
 import com.example.fitnessapp.service.ExerciseScheduleService;
 import com.example.fitnessapp.service.ExerciseService;
@@ -48,6 +49,19 @@ public class ExerciseScheduleController {
             model.addAttribute("schedule", schedule);
             model.addAttribute("bodyContent", "add-product");
             return "master-template";
+    }
+
+    @GetMapping("/schedule/{id}/exercise-list/")
+    public String listExercises(@PathVariable Long id, Model model) throws InvalidExerciseIdException {
+        ExerciseSchedule exerciseSchedule = exerciseScheduleService.findById(id);
+        model.addAttribute("exercise", exercise);
+        model.addAttribute("bodyContent", "exercise-list");
+        return "master-template";
+    }
+
+    @GetMapping("/schedule/{id}/add-exercise")
+    public String addExerciseToSchedule(@PathVariable Long id, @RequestParam Long id2, Model model) {
+
     }
 
     @GetMapping("/add-schedule")

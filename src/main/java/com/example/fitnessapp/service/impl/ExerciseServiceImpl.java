@@ -91,4 +91,10 @@ public class ExerciseServiceImpl implements ExerciseService {
         repository.save(exercise);
         return exercise;
     }
+
+    @Override
+    public List<Exercise> listByType(Type type) {
+        List<Exercise> list = repository.findAll();
+        return (List<Exercise>) list.stream().filter(r->r.getType().equals(type));
+    }
 }

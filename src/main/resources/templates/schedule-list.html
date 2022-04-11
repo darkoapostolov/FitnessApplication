@@ -21,6 +21,7 @@
                         <tr th:each="schedule : ${schedules}" class="product">
                             <td th:text="${schedule.getName()}"></td>
                             <td th:text="${schedule.getDifficulty()}"></td>
+                            <td th:text="${schedule.getType()}"></td>
                             <td class="text-right">
 <!--                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
                                     <form th:action="@{'/schedules/delete/{id}' (id=${schedule.getId()})}"
@@ -37,6 +38,12 @@
                                         <i class="fa fa-trash">Edit</i>
                                     </a>
 <!--                                </th:block>-->
+                                <th:block>
+                                    <a th:href="@{'/schedule-list/schedule/{id}/exercise-list' (id=${schedule.getId()})}"
+                                       class="btn btn-sm btn-info">
+                                        <i class="fa fa-trash">Details</i>
+                                    </a>
+                                </th:block>
                                 <form th:action="@{'/schedules/{id}/add-exercise' (id=${schedule.getId()})}"
                                       th:method="POST">
 <!--                                      sec:authorize="isAuthenticated()">-->

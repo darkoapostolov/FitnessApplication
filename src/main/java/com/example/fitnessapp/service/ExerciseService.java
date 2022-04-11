@@ -21,4 +21,5 @@ public interface ExerciseService {
     Exercise edit(Long id, String name, int reps, int difficulty, Type type, String description, String image, List<Comment> comments, int likes, int dislikes) throws InvalidExerciseIdException;
     Exercise delete(Long id) throws InvalidExerciseIdException;
     Exercise addComment (Long id, Comment comment) throws InvalidExerciseIdException;
+    List<Exercise> listByType(Type type);
 }
