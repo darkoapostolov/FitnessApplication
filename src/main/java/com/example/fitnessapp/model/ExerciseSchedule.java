@@ -20,7 +20,7 @@ public class ExerciseSchedule {
     @Enumerated(value = EnumType.STRING)
     private Type type;
 
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.ALL)
     private List<Exercise> exercises;
 
     public ExerciseSchedule(String name, String difficulty, List<Exercise> exercises, Type type) {

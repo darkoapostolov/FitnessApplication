@@ -70,7 +70,6 @@
             transition: height 0.3s, width 0.3s;
         }
     </style>
-
     <section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">CHAD APP</h1>
@@ -80,7 +79,6 @@
     <div th:if="${hasError}">
         <h5 class="text-center text-danger" th:text="${error}"></h5>
     </div>
-
     <div class="container mb-4">
         <div class="row">
             <div class="col-12" th:if="${exercises.size() > 0}">
@@ -91,17 +89,21 @@
 <!--                        </div>-->
 <!--                    </th:block>-->
 <!--                    <br>-->
-                    <ul th:each="exercise : ${exercises}" class="cart-item">
-
-                        <div>
-                            <div class="exBlock">
-                                <input type="radio" th:value="${exercise.getId()}"><h5 th:text="${exercise.getName()}"></h5></input>
-                            </div>
-                        </div>
+<!--                    <form action="/courses/addStoC" method="post">-->
+<!--                        <ul style="list-style: none">-->
+<!--                            <li th:each="student: ${students}"><input type="radio" th:value="${student.getUsername()}" name="student"><th:block th:text="${student.getName()}+' '+${student.getSurname()}"></th:block></li>-->
+<!--                        </ul>-->
+                    <form action="/schedules/addToSchedule" method="post">
+                    <ul>
+                            <li th:each="exercise : ${exercises}" >
+                                <input type="checkbox" th:value="${exercise.getId()}" name="exId" id="exId"/><h5 th:text="${exercise.getName()}"></h5>
+                            </li>
                     </ul>
-
+                        <input class="btn btn-outline-primary" type='submit' name="submit" value='Submit'/>
+                    </form>
                 </div>
             </div>
+
         </div>
     </div>
     <script>

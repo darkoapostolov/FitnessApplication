@@ -44,8 +44,8 @@
                                         <i class="fa fa-trash">Details</i>
                                     </a>
                                 </th:block>
-                                <form th:action="@{'/schedules/{id}/add-exercise' (id=${schedule.getId()})}"
-                                      th:method="POST">
+                                <form th:action="@{'/schedules/schedule/{id}/add-exercise' (id=${schedule.getId()})}"
+                                      th:method="GET">
 <!--                                      sec:authorize="isAuthenticated()">-->
                                     <button type="submit"
                                             class="btn btn-sm btn-primary cart-product">

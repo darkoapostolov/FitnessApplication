@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-5">
-                <form action="/add-schedule" method="POST">
+                <form action="/schedules/add" method="POST">
                     <label for='name'>Schedule Name:</label>
                     <input id='name' type='text' name='name' th:value="(${schedule} != null ? ${schedule.getName()} : '')"/><br/>
                     <label for='difficulty'>Difficulty:</label>

@@ -8,8 +8,11 @@ import com.example.fitnessapp.model.exceptions.InvalidExerciseScheduleIdExceptio
 import com.example.fitnessapp.repository.ExerciseRepository;
 import com.example.fitnessapp.repository.ExerciseScheduleRepository;
 import com.example.fitnessapp.service.ExerciseScheduleService;
+import com.example.fitnessapp.service.ExerciseService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,9 +21,9 @@ public class ExerciseScheduleServiceImpl implements ExerciseScheduleService {
     private final ExerciseScheduleRepository repository;
     private final ExerciseServiceImpl exerciseService;
 
-    public ExerciseScheduleServiceImpl(ExerciseScheduleRepository repository, ExerciseRepository exerciseRepository, ExerciseServiceImpl exerciseService) {
+    public ExerciseScheduleServiceImpl(ExerciseScheduleRepository repository, ExerciseServiceImpl exerciseRepository) {
         this.repository = repository;
-        this.exerciseService = exerciseService;
+        this.exerciseService = exerciseRepository;
     }
 
     @Override
@@ -55,9 +58,14 @@ public class ExerciseScheduleServiceImpl implements ExerciseScheduleService {
         return exerciseSchedule;
     }
 
+    //String name, int reps, int difficulty, Type type, String description, String image, List<Comment> comments, int likes, int dislikes
     @Override
     public ExerciseSchedule delete(Long id) throws InvalidExerciseScheduleIdException {
         ExerciseSchedule exerciseSchedule = repository.findById(id).orElseThrow(InvalidExerciseScheduleIdException::new);
+        for (int i=0;i<exerciseSchedule.getExercises().size();i++){
+            Exercise exercise = exerciseSchedule.getExercises().get(i);
+            exerciseService.create(exercise.getName(),exercise.getReps(),exercise.getDifficulty(),exercise.getType(),exercise.getDescription(),exercise.getImage(),new ArrayList<>(),exercise.getLikes(),exercise.getDislikes());
+        }
         repository.delete(exerciseSchedule);
         return exerciseSchedule;
     }
@@ -65,7 +73,8 @@ public class ExerciseScheduleServiceImpl implements ExerciseScheduleService {
     @Override
     public ExerciseSchedule addExercise(Long id, Long idEx) throws InvalidExerciseScheduleIdException, InvalidExerciseIdException {
         ExerciseSchedule exerciseSchedule = repository.findById(id).orElseThrow(InvalidExerciseScheduleIdException::new);
-        exerciseSchedule.getExercises().add(new Exercise(exerciseService.findById(id)));
+        Exercise e = exerciseService.findById(idEx);
+        exerciseSchedule.getExercises().add(e);
         repository.save(exerciseSchedule);
         return exerciseSchedule;
     }
