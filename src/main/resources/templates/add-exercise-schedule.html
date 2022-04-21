@@ -8,25 +8,17 @@
     <div class="container">
         <div class="row">
             <div class="col-md-5">
-                <form action="/schedules/{id}/add-exercise" method="POST">
-                    <div class="form-group">
-                        <label>Category</label>
-                        <select name="category" class="form-control">
-                            <option th:if="${product} != null"
-                                    th:selected="${product.getCategory() != null && product.getCategory().getId() == cat.getId()}"
-                                    th:each="cat : ${categories}"
-                                    th:value="${cat.getId()}"
-                                    th:text="${cat.getName()}">
-                            </option>
-                            <option th:if="${product} == null"
-                                    th:each="cat : ${categories}"
-                                    th:value="${cat.getId()}"
-                                    th:text="${cat.getName()}">
-                            </option>
-                        </select>
-                    </div>
-                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
-                    <a type="button" class="btn btn-primary" href="/schedules">Back</a>
+                <form action="/add-schedule" method="POST">
+                    <label for='name'>Schedule Name:</label>
+                    <input id='name' type='text' name='name' th:value="(${schedule} != null ? ${schedule.getName()} : '')"/><br/>
+                    <label for='difficulty'>Difficulty:</label>
+                    <input id='difficulty' type='text' name='difficulty' th:value="(${schedule} != null ? ${schedule.getDifficulty()} : '')"/><br/>
+                    <!--<input type="text" id="courseId" name="courseId" th:value="(${course} != null ? ${course.getCourseId()} : '')" hidden>-->
+                    <label for="type">Type:</label>
+                    <select name="type" id="type">
+                        <option th:each="type: ${types}" th:value="${type}" th:text="${type}" ></option>
+                    </select>
+                    <input type='submit' name="submit" value='Submit'/>
                 </form>
             </div>
         </div>

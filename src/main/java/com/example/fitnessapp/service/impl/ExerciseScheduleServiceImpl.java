@@ -47,9 +47,10 @@ public class ExerciseScheduleServiceImpl implements ExerciseScheduleService {
     }
 
     @Override
-    public ExerciseSchedule edit(Long id, String name, String difficulty, List<Exercise> exercises) throws InvalidExerciseScheduleIdException {
+    public ExerciseSchedule edit(Long id, String name, String difficulty, List<Exercise> exercises, Type type) throws InvalidExerciseScheduleIdException {
         ExerciseSchedule exerciseSchedule = repository.findById(id).orElseThrow(InvalidExerciseScheduleIdException::new);
         exerciseSchedule.setExercises(exercises);
+        exerciseSchedule.setType(type);
         repository.save(exerciseSchedule);
         return exerciseSchedule;
     }
