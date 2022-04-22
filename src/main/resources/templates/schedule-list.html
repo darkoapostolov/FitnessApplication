@@ -1,4 +1,49 @@
 <div>
+    <style>
+        .schedule{
+            list-style: none;
+            box-shadow: 5px 10px 8px #888888;
+            width: 300px;
+            height: 420px;
+            border-radius: 10px;
+            transition: 0.5s;
+        }
+        .schedule:hover{
+            box-shadow: 5px 10px 15px #666666;
+            border-radius: 2px;
+            height: 440px;
+            width: 350px;
+        }
+        ul{
+            display: inline-grid;
+            grid-auto-columns: 300px;
+        }
+        img{
+            height: 300px;
+            width: 200px;
+            object-fit: cover;
+        }
+        .schedulePhoto{
+            margin: auto;
+            border-radius: 10px;
+        }
+        .scheduleButtons{
+            display: flex;
+            margin: auto;
+        }
+        .name{
+            margin: auto;
+            font-weight: bold;
+        }
+        .diff{
+            margin: auto;
+            font-weight: bold;
+        }
+        .type{
+            margin: auto;
+            font-weight: bold;
+        }
+    </style>
     <section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">FITNESS APP</h1>
@@ -7,22 +52,12 @@
     </section>
 
     <div class="container mb-4">
-        <div class="row">
-            <div class="col-12" th:if="${schedules.size() > 0}">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th scope="col">Schedule ID</th>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="schedule : ${schedules}" class="product">
-                            <td th:text="${schedule.getName()}"></td>
-                            <td th:text="${schedule.getDifficulty()}"></td>
-                            <td th:text="${schedule.getType()}"></td>
-                            <td class="text-right">
+                        <ul th:each="schedule : ${schedules}">
+                            <li class="schedule p-3 w-100 card">
+                                <div class="schedulePhoto"> <img class="w-100" th:src="${schedule.getImage()}"></div>
+                                <h2 class="name" th:text="${schedule.getName()}"></h2>
+                                <div class="diff">Difficulty: <th:block th:text="${schedule.getDifficulty()}"></th:block></div>
+                                <div class="scheduleButtons">
 <!--                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
                                     <form th:action="@{'/schedules/delete/{id}' (id=${schedule.getId()})}"
                                           th:method="DELETE">
@@ -33,13 +68,13 @@
                                     </form>
 <!--                                </th:block>-->
 <!--                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
-                                    <a th:href="@{'/schedules/edit-schedules/{id}' (id=${schedule.getId()})}"
-                                       class="btn btn-sm btn-info edit-product">
+                                    <a th:href="@{'/schedules/edit-schedule/{id}' (id=${schedule.getId()})}"
+                                       class="btn btn-sm btn-warning edit-product">
                                         <i class="fa fa-trash">Edit</i>
                                     </a>
 <!--                                </th:block>-->
                                 <th:block>
-                                    <a th:href="@{'/schedule-list/schedule/{id}/exercise-list' (id=${schedule.getId()})}"
+                                    <a th:href="@{'/schedules/schedule/{id}/exercise-list' (id=${schedule.getId()})}"
                                        class="btn btn-sm btn-info">
                                         <i class="fa fa-trash">Details</i>
                                     </a>
@@ -52,12 +87,10 @@
                                         <i class="fa fa-trash">Add exercise</i>
                                     </button>
                                 </form>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                                </div>
+                            </li>
+                        </ul>
+
             <div class="col mb-3">
                 <div class="row">
 <!--                    <div class="col-sm-12 col-md-12" sec:authorize="hasRole('ROLE_ADMIN')">-->
@@ -68,5 +101,4 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+

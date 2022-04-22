@@ -43,17 +43,19 @@ public class ExerciseScheduleServiceImpl implements ExerciseScheduleService {
     }
 
     @Override
-    public ExerciseSchedule create(String name, String difficulty, List<Exercise> exercises, Type type) {
-        ExerciseSchedule exerciseSchedule = new ExerciseSchedule(name, difficulty, exercises, type);
+    public ExerciseSchedule create(String name, String difficulty, String image, List<Exercise> exercises, Type type) {
+        ExerciseSchedule exerciseSchedule = new ExerciseSchedule(name, difficulty, image, exercises, type);
         repository.save(exerciseSchedule);
         return exerciseSchedule;
     }
 
     @Override
-    public ExerciseSchedule edit(Long id, String name, String difficulty, List<Exercise> exercises, Type type) throws InvalidExerciseScheduleIdException {
+    public ExerciseSchedule edit(Long id, String name,String difficulty, String image, List<Exercise> exercises, Type type) throws InvalidExerciseScheduleIdException {
         ExerciseSchedule exerciseSchedule = repository.findById(id).orElseThrow(InvalidExerciseScheduleIdException::new);
         exerciseSchedule.setExercises(exercises);
         exerciseSchedule.setType(type);
+        exerciseSchedule.setImage(image);
+        exerciseSchedule.setDifficulty(difficulty);
         repository.save(exerciseSchedule);
         return exerciseSchedule;
     }
@@ -62,10 +64,10 @@ public class ExerciseScheduleServiceImpl implements ExerciseScheduleService {
     @Override
     public ExerciseSchedule delete(Long id) throws InvalidExerciseScheduleIdException {
         ExerciseSchedule exerciseSchedule = repository.findById(id).orElseThrow(InvalidExerciseScheduleIdException::new);
-        for (int i=0;i<exerciseSchedule.getExercises().size();i++){
-            Exercise exercise = exerciseSchedule.getExercises().get(i);
-            exerciseService.create(exercise.getName(),exercise.getReps(),exercise.getDifficulty(),exercise.getType(),exercise.getDescription(),exercise.getImage(),new ArrayList<>(),exercise.getLikes(),exercise.getDislikes());
-        }
+//        for (int i=0;i<exerciseSchedule.getExercises().size();i++){
+//            Exercise exercise = exerciseSchedule.getExercises().get(i);
+//            exerciseService.create(exercise.getName(),exercise.getReps(),exercise.getDifficulty(),exercise.getType(),exercise.getDescription(),exercise.getImage(),new ArrayList<>(),exercise.getLikes(),exercise.getDislikes());
+//        }
         repository.delete(exerciseSchedule);
         return exerciseSchedule;
     }

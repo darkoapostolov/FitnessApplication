@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/schedules")
@@ -58,10 +59,11 @@ public class ExerciseScheduleController {
             return "master-template";
     }
 
-    @GetMapping("/schedule/{id}/exercise-list/")
+    @GetMapping("/schedule/{id}/exercise-list")
     public String listExercises(@PathVariable Long id, Model model) throws InvalidExerciseIdException, InvalidExerciseScheduleIdException {
         List<Exercise> exercises = exerciseScheduleService.listExercises(id);
-        model.addAttribute("exercise", exercises);
+        model.addAttribute("id",id);
+        model.addAttribute("exercises", exercises);
         model.addAttribute("bodyContent", "exercise-list");
         return "master-template";
     }
@@ -78,34 +80,54 @@ public class ExerciseScheduleController {
 
     @PostMapping("/add")
     public String saveSchedule(
-            @RequestParam(required = false) Long id,
-            @RequestParam String name,
-            @RequestParam String difficulty,
-            @RequestParam Type type) throws InvalidExerciseScheduleIdException {
+            @RequestParam(required = false)
+            String name,
+            String difficulty,
+            String image,
+            Type type,
+            Long id) throws InvalidExerciseScheduleIdException {
 
-        List<Exercise> exercises = new ArrayList<>();
+        List<Exercise> exercises;
         if (id != null) {
-            this.exerciseScheduleService.edit(id, name ,difficulty, exercises, type);
+            exercises = exerciseScheduleService.findById(id).getExercises();
+            this.exerciseScheduleService.edit(id, name ,difficulty, image, exercises, type);
         } else {
-            this.exerciseScheduleService.create(name ,difficulty, exercises, type);;
+            exercises = new ArrayList<>();
+            this.exerciseScheduleService.create(name ,difficulty, image, exercises, type);
         }
         return "redirect:/schedules";
     }
 
     @GetMapping("/schedule/{id}/add-exercise")
     public String addExerciseToSchedule(HttpServletRequest req, @PathVariable Long id, Model model) throws InvalidExerciseScheduleIdException {
+        boolean flag=false;
         List<Exercise> exercises = this.exerciseService.findAll();
+        List<Exercise> exercises1 = exerciseScheduleService.findById(id).getExercises();
+        List<Exercise> exercises2 = new ArrayList<>();
+            for (Exercise e: exercises) {
+                for (Exercise e1: exercises1) {
+                    if (e == e1) {
+                        flag=true;
+                    }
+                }
+                if (flag==false){
+                    exercises2.add(e);
+                }
+                flag=false;
+            }
         req.getSession().setAttribute("id",id);
         model.addAttribute("schedule",exerciseScheduleService.findById(id));
-        model.addAttribute("exercises", exercises);
+        model.addAttribute("exercises", exercises2);
         model.addAttribute("bodyContent", "add-exercise-to-schedule");
         return "master-template";
     }
 
     @PostMapping("/addToSchedule")
-    public String addToSchedule(@RequestParam Long exId, HttpServletRequest request) throws InvalidExerciseIdException, InvalidExerciseScheduleIdException {
+    public String addToSchedule(@RequestParam List<Long> exId, HttpServletRequest request) throws InvalidExerciseIdException, InvalidExerciseScheduleIdException {
         Long id = Long.parseLong(String.valueOf(request.getSession().getAttribute("id")));
-            this.exerciseScheduleService.addExercise(id, exId);
+        for (int i=0;i<exId.size();i++) {
+            this.exerciseScheduleService.addExercise(id, exId.get(i));
+        }
         return "redirect:/schedules";
     }
 }

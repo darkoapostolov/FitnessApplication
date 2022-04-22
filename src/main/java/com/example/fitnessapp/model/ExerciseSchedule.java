@@ -20,12 +20,15 @@ public class ExerciseSchedule {
     @Enumerated(value = EnumType.STRING)
     private Type type;
 
-    @ManyToMany(cascade=CascadeType.ALL)
+    private String image;
+
+    @ManyToMany(cascade=CascadeType.PERSIST)
     private List<Exercise> exercises;
 
-    public ExerciseSchedule(String name, String difficulty, List<Exercise> exercises, Type type) {
+    public ExerciseSchedule(String name, String difficulty, String image, List<Exercise> exercises, Type type) {
         this.name = name;
         this.difficulty = difficulty;
+        this.image=image;
         this.exercises = exercises;
         this.type=type;
     }

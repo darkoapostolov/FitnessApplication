@@ -14,8 +14,8 @@ public interface ExerciseScheduleService {
     List<ExerciseSchedule> listAll();
     List<Exercise> listExercises(Long id) throws InvalidExerciseScheduleIdException;
     ExerciseSchedule findById(Long Id) throws InvalidExerciseScheduleIdException;
-    ExerciseSchedule create(String name, String difficulty, List<Exercise> exercises, Type type);
-    ExerciseSchedule edit(Long id, String name, String difficulty, List<Exercise> exercises, Type type) throws InvalidExerciseScheduleIdException;
+    ExerciseSchedule create(String name, String difficulty, String Image, List<Exercise> exercises, Type type);
+    ExerciseSchedule edit(Long id, String name, String difficulty, String Image, List<Exercise> exercises, Type type) throws InvalidExerciseScheduleIdException;
     ExerciseSchedule delete(Long id) throws InvalidExerciseScheduleIdException;
     ExerciseSchedule addExercise(Long id, Long idEx) throws InvalidExerciseScheduleIdException, InvalidExerciseIdException;
 }

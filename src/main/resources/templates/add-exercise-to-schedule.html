@@ -1,6 +1,10 @@
 <div>
 
     <style>
+        .button{
+            margin: 35px;
+            margin-bottom: 20px;
+        }
         img {
             display: block;
             margin-left: auto;
@@ -48,26 +52,9 @@
             margin-left: -10px;
             margin-top: -50px;
         }
-        #addButton{
-            text-align: center;
-            border: 2px solid black;
-            width: 115px;
-            position: relative;
-            left: 4%;
-            height: 30px;
-            background: white;
-            border-radius: 5px;
-            transition: height 0.3s, width 0.3s;
-        }
         #addButton>a{
             color: black;
             text-decoration: none;
-        }
-        #addButton:hover{
-            width: 116px;
-            height: 31px;
-            background: lightgray;
-            transition: height 0.3s, width 0.3s;
         }
     </style>
     <section class="jumbotron text-center">
@@ -89,17 +76,19 @@
 <!--                        </div>-->
 <!--                    </th:block>-->
 <!--                    <br>-->
-<!--                    <form action="/courses/addStoC" method="post">-->
-<!--                        <ul style="list-style: none">-->
-<!--                            <li th:each="student: ${students}"><input type="radio" th:value="${student.getUsername()}" name="student"><th:block th:text="${student.getName()}+' '+${student.getSurname()}"></th:block></li>-->
-<!--                        </ul>-->
+
                     <form action="/schedules/addToSchedule" method="post">
-                    <ul>
-                            <li th:each="exercise : ${exercises}" >
-                                <input type="checkbox" th:value="${exercise.getId()}" name="exId" id="exId"/><h5 th:text="${exercise.getName()}"></h5>
+                        <input class="button btn btn-outline-primary" type='submit' name="submit" value='Add'/><br>
+                    <ul th:each="exercise : ${exercises}">
+                            <li>
+                                <div class="exBlock">
+                                <input type="checkbox" th:value="${exercise.getId()}" name="exId" id="exId"/>
+                                <h5 th:text="${exercise.getName()}"></h5>
+                                    <img th:src="${exercise.getImage()}">
+                                    <b style="position: absolute">Difficulty: </b><p style="text-align: right;)"><th:block th:text=" ${exercise.getDifficulty()}"></th:block></p>
+                                </div>
                             </li>
                     </ul>
-                        <input class="btn btn-outline-primary" type='submit' name="submit" value='Submit'/>
                     </form>
                 </div>
             </div>
@@ -108,22 +97,13 @@
     </div>
     <script>
         $(".buttonBlock").hide();
-        // var a = "https://st3.depositphotos.com/10953878/15049/i/450/depositphotos_150498978-stock-photo-seamless-festive-green-diagonal-lines.jpg";
         $('.buttonBlock').each(function (i, element) {
             $(".exBlock").on({
                 mouseenter: function () {
-                    // var r = Math.floor(Math.random()*1000)
-                    // if (r%2==0){
-                    //     $(this).css("transform","rotate(10deg)")
-                    // }else {
-                    //     $(this).css("transform","rotate(0deg)")
-                    // }
-                    // $(this).css('background-image', 'url(' + a + ')');
                     $(this).find('.buttonBlock').fadeIn(1500);
                     $(this).find('.buttonBlock').css("display", "flex");
                 },
                 mouseleave: function () {
-                    // $(this).css("transform","rotate(3deg)")
                     $(this).find('.buttonBlock').fadeOut(200);
                 }
             });
