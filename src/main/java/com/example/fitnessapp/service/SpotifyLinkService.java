@@ -11,4 +11,7 @@ public interface SpotifyLinkService {
     List<SpotifyLink> findAll();
     SpotifyLink findById(Long id) throws InvalidSpotifyLinkIdException;
     SpotifyLink findByName(String name);
+    SpotifyLink create(String name, String link, String image);
+    SpotifyLink edit(Long id, String link, String name, String image) throws InvalidSpotifyLinkIdException;
+    SpotifyLink delete(Long id) throws InvalidSpotifyLinkIdException;
 }

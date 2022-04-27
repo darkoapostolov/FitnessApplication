@@ -3,6 +3,7 @@ package com.example.fitnessapp.service.impl;
 import com.example.fitnessapp.model.Comment;
 import com.example.fitnessapp.model.Exercise;
 import com.example.fitnessapp.model.enumerations.Type;
+import com.example.fitnessapp.model.enumerations.Weights;
 import com.example.fitnessapp.model.exceptions.InvalidExerciseIdException;
 import com.example.fitnessapp.repository.ExerciseRepository;
 import com.example.fitnessapp.service.ExerciseService;
@@ -55,17 +56,18 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public Exercise create(String name, int reps, int difficulty, Type type, String description, String image, List<Comment> comments, int likes, int dislikes) {
-        Exercise exercise = new Exercise(name, reps, difficulty, type, description, image, comments, likes, dislikes);
+    public Exercise create(String name, int reps, int difficulty, Weights weights, Type type, String description, String image, List<Comment> comments, int likes, int dislikes) {
+        Exercise exercise = new Exercise(name, reps, difficulty, weights, type, description, image, comments, likes, dislikes);
         repository.save(exercise);
         return exercise;
     }
 
     @Override
-    public Exercise edit(Long id, String name,int reps, int difficulty, Type type, String description, String image, List<Comment> comments, int likes, int dislikes) throws InvalidExerciseIdException {
+    public Exercise edit(Long id, String name,int reps, int difficulty, Weights weights, Type type, String description, String image, List<Comment> comments, int likes, int dislikes) throws InvalidExerciseIdException {
         Exercise exercise = repository.findById(id).orElseThrow(InvalidExerciseIdException::new);
         exercise.setName(name);
         exercise.setDifficulty(difficulty);
+        exercise.setWeights(weights);
         exercise.setReps(reps);
         exercise.setType(type);
         exercise.setDescription(description);

@@ -1,0 +1,103 @@
+<div>
+    <style>
+        .schedule{
+            list-style: none;
+            box-shadow: 5px 10px 8px #888888;
+            width: 300px;
+            height: 420px;
+            border-radius: 10px;
+            transition: 0.5s;
+        }
+        .schedule:hover{
+            box-shadow: 5px 10px 15px #666666;
+            border-radius: 2px;
+            height: 440px;
+            width: 350px;
+        }
+        ul{
+            display: inline-grid;
+            grid-auto-columns: 300px;
+        }
+        img{
+            height: 300px;
+            width: 200px;
+            object-fit: cover;
+        }
+        .schedulePhoto{
+            margin: auto;
+            border-radius: 10px;
+        }
+        .scheduleButtons{
+            display: flex;
+            margin: auto;
+        }
+        .name{
+            margin: auto;
+            font-weight: bold;
+        }
+        .diff{
+            margin: auto;
+            font-weight: bold;
+        }
+        .type{
+            margin: auto;
+            font-weight: bold;
+        }
+    </style>
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">FITNESS APP</h1>
+            <h3 class="jumbotron-heading">Schedules</h3>
+        </div>
+    </section>
+
+    <div class="container mb-4">
+        <ul th:each="schedule : ${schedules}">
+            <li class="schedule p-3 w-100 card">
+                <div class="schedulePhoto"> <img class="w-100" th:src="${schedule.getImage()}"></div>
+                <h2 class="name" th:text="${schedule.getName()}"></h2>
+                <div class="diff">Difficulty: <th:block th:text="${schedule.getDifficulty()}"></th:block></div>
+                <div class="scheduleButtons">
+                    <!--                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
+                    <form th:action="@{'/schedules/delete/{id}' (id=${schedule.getId()})}"
+                          th:method="DELETE">
+                        <button type="submit"
+                                class="btn btn-sm btn-danger delete-product">
+                            <i class="fa fa-trash">Delete</i>
+                        </button>
+                    </form>
+                    <!--                                </th:block>-->
+                    <!--                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
+                    <a th:href="@{'/schedules/edit-schedule/{id}' (id=${schedule.getId()})}"
+                       class="btn btn-sm btn-warning edit-product">
+                        <i class="fa fa-trash">Edit</i>
+                    </a>
+                    <!--                                </th:block>-->
+                    <th:block>
+                        <a th:href="@{'/schedules/schedule/{id}/exercise-list' (id=${schedule.getId()})}"
+                           class="btn btn-sm btn-info">
+                            <i class="fa fa-trash">Details</i>
+                        </a>
+                    </th:block>
+                    <form th:action="@{'/schedules/schedule/{id}/add-exercise' (id=${schedule.getId()})}"
+                          th:method="GET">
+                        <!--                                      sec:authorize="isAuthenticated()">-->
+                        <button type="submit"
+                                class="btn btn-sm btn-primary cart-product">
+                            <i class="fa fa-trash">Add exercise</i>
+                        </button>
+                    </form>
+                </div>
+            </li>
+        </ul>
+
+        <div class="col mb-3">
+            <div class="row">
+                <!--                    <div class="col-sm-12 col-md-12" sec:authorize="hasRole('ROLE_ADMIN')">-->
+                <a href="/schedules/add-schedule" class="btn btn-block btn-dark add-product-btn">
+                    Add new Schedule
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

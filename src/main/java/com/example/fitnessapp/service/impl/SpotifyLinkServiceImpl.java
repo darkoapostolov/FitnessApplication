@@ -27,4 +27,24 @@ public class SpotifyLinkServiceImpl implements SpotifyLinkService {
     public SpotifyLink findByName(String name) {
         return repository.findByName(name);
     }
+
+    public SpotifyLink create(String name, String link, String image){
+        SpotifyLink s = new SpotifyLink(name,link,image);
+        repository.save(s);
+        return s;
+    }
+
+    public SpotifyLink edit(Long id, String link, String name, String image) throws InvalidSpotifyLinkIdException {
+        SpotifyLink s = repository.findById(id).orElseThrow(InvalidSpotifyLinkIdException::new);
+        s.setLink(link);
+        s.setName(name);
+        s.setImage(image);
+        repository.save(s);
+        return s;
+    }
+    public SpotifyLink delete(Long id) throws InvalidSpotifyLinkIdException {
+        SpotifyLink s = repository.findById(id).orElseThrow(InvalidSpotifyLinkIdException::new);
+        repository.delete(s);
+        return s;
+    }
 }

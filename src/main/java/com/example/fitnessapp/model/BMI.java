@@ -17,9 +17,12 @@ public class BMI {
 
     private double weight;
 
+    private double calculate;
+
     public BMI(double height, double weight) {
         this.height = height;
         this.weight = weight;
+        this.calculate = height/(weight*weight);
     }
 
     public BMI() {

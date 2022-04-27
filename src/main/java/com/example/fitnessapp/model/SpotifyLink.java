@@ -16,10 +16,9 @@ public class SpotifyLink {
     private String name;
     private String image;
 
-    public SpotifyLink(Long id, String link, String name, String image) {
-        Id = id;
-        this.link = link;
+    public SpotifyLink(String name, String link, String image) {
         this.name = name;
+        this.link = link;
         this.image = image;
     }
 

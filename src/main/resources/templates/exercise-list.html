@@ -69,6 +69,7 @@
             background: lightgray;
             transition: height 0.3s, width 0.3s;
         }
+
     </style>
 
     <section class="jumbotron text-center">
@@ -130,34 +131,32 @@
                                         </a>
                                     </th:block>
                                 </li>
+                                    <li>
+                                        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                            <a th:if="${id!=null}" th:href="@{'/schedules/{ids}/removeFromSchedule/' (ids=${exercise.getId()})}"
+                                               class="btn btn-sm btn-warning">
+                                                <i class="fa fa-trash">Remove</i>
+                                            </a>
+                                        </th:block>
+                                    </li>
 
                                 </div>
                         </div>
                         </div>
                     </ul>
-
                 </div>
             </div>
         </div>
     </div>
     <script>
             $(".buttonBlock").hide();
-            // var a = "https://st3.depositphotos.com/10953878/15049/i/450/depositphotos_150498978-stock-photo-seamless-festive-green-diagonal-lines.jpg";
             $('.buttonBlock').each(function (i, element) {
                 $(".exBlock").on({
                     mouseenter: function () {
-                        // var r = Math.floor(Math.random()*1000)
-                        // if (r%2==0){
-                        //     $(this).css("transform","rotate(10deg)")
-                        // }else {
-                        //     $(this).css("transform","rotate(0deg)")
-                        // }
-                        // $(this).css('background-image', 'url(' + a + ')');
                         $(this).find('.buttonBlock').fadeIn(1500);
                         $(this).find('.buttonBlock').css("display", "flex");
                     },
                     mouseleave: function () {
-                        // $(this).css("transform","rotate(3deg)")
                         $(this).find('.buttonBlock').fadeOut(200);
                     }
                 });

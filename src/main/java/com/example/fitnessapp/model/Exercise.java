@@ -1,5 +1,6 @@
 package com.example.fitnessapp.model;
 
+import com.example.fitnessapp.model.enumerations.Weights;
 import lombok.Data;
 import com.example.fitnessapp.model.enumerations.Type;
 
@@ -17,6 +18,8 @@ public class Exercise {
 
     int reps;
 
+    Weights weights;
+
     private int difficulty;
 
     @Enumerated(value = EnumType.STRING)
@@ -33,10 +36,11 @@ public class Exercise {
 
     private int dislikes;
 
-    public Exercise(String name, int reps, int difficulty, Type type, String description, String image, List<Comment> comments, int likes, int dislikes) {
+    public Exercise(String name, int reps, int difficulty, Weights weights, Type type, String description, String image, List<Comment> comments, int likes, int dislikes) {
         this.name = name;
         this.reps = reps;
         this.difficulty = difficulty;
+        this.weights=weights;
         this.type = type;
         this.description = description;
         this.image = image;

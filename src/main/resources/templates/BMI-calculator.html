@@ -1,4 +1,4 @@
-<th:block xmlns:th="http://www.thymeleaf.org">
+
     <section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">FITNESS APP</h1>
@@ -8,8 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-5">
-                <form action="/bmi/{id}" method="POST">
-                    <input id="id" type="hidden" name="id" th:value="(${BMI} != null ? ${BMI.getId()} : '')">
+                <form action="/bmi" method="GET">
                     <div class="form-group">
                         <label for="weight">Weight (kg):</label>
                         <input type="text"
@@ -21,7 +20,7 @@
                                placeholder="Weight">
                     </div>
                     <div class="form-group">
-                        <label for="height">Height (m):</label>
+                        <label for="height">Height (cm):</label>
                         <input type="text"
                                class="form-control"
                                id="height"
@@ -30,14 +29,12 @@
                                placeholder="Height">
                     </div>
                     <div>
-                        <textarea name="calcuate"></textarea>
                     </div>
                     <button id="submit" type="submit" class="btn btn-primary">Submit</button>
-                    <a type="button" class="btn btn-primary" href="/home">Back</a>
                 </form>
+                    <a type="button" class="btn btn-primary" href="/home">Back</a>
+                <br>
+                <div><th:block th:value="${calc}"></th:block></div>
             </div>
         </div>
     </div>
-
-
-</th:block>

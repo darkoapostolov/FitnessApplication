@@ -50,8 +50,11 @@
             <h3 class="jumbotron-heading">Schedules</h3>
         </div>
     </section>
-
-    <div class="container mb-4">
+    <form action="schedules/userSchedules"
+          method="GET">
+    <button class="btn btn-outline-primary" type="submit">User Schedules</button>
+    </form>
+        <div class="container mb-4">
                         <ul th:each="schedule : ${schedules}">
                             <li class="schedule p-3 w-100 card">
                                 <div class="schedulePhoto"> <img class="w-100" th:src="${schedule.getImage()}"></div>

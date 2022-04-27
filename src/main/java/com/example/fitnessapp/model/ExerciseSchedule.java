@@ -1,6 +1,7 @@
 package com.example.fitnessapp.model;
 
 import com.example.fitnessapp.model.enumerations.Type;
+import com.example.fitnessapp.model.enumerations.Weights;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,12 +23,18 @@ public class ExerciseSchedule {
 
     private String image;
 
+    private Weights weights;
+
     @ManyToMany(cascade=CascadeType.PERSIST)
     private List<Exercise> exercises;
 
-    public ExerciseSchedule(String name, String difficulty, String image, List<Exercise> exercises, Type type) {
+    private String username;
+
+    public ExerciseSchedule(String username, String name, String difficulty, Weights weights, String image, List<Exercise> exercises, Type type) {
+        this.username=username;
         this.name = name;
         this.difficulty = difficulty;
+        this.weights=weights;
         this.image=image;
         this.exercises = exercises;
         this.type=type;

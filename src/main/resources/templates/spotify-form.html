@@ -1,0 +1,47 @@
+<div>
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">FITNESS APP</h1>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <form action="/spotify/create" method="POST">
+                    <input id="id" type="hidden" name="id" th:value="(${spotifyLink} != null ? ${spotifyLink.getId()} : '')">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text"
+                               class="form-control"
+                               id="name"
+                               name="name"
+                               th:value="(${spotifyLink} != null ? ${spotifyLink.getName()} : '')"
+                               required
+                               placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
+                        <label for="link">Link</label>
+                        <input type="text"
+                               class="form-control"
+                               id="link"
+                               name="link"
+                               th:value="(${spotifyLink} != null ? ${spotifyLink.getLink()} : '')"
+                               placeholder="Link">
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Images</label>
+                        <input type="text"
+                               class="form-control"
+                               id="image"
+                               name="image"
+                               th:value="(${spotifyLink} != null ? ${spotifyLink.getImage()} : '')"
+                               placeholder="Image">
+                    </div>
+                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                    <a type="button" class="btn btn-primary" href="/schedules">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -23,6 +23,7 @@ public class BMIServiceImpl implements BMIService {
     @Override
     public BMI create(double height, double weight) {
         BMI bmi = new BMI(height,weight);
+        bmi.setCalculate(height/(weight*weight));
         repository.save(bmi);
         return bmi;
     }
@@ -32,6 +33,7 @@ public class BMIServiceImpl implements BMIService {
         BMI bmi = repository.findById(id).orElseThrow(InvalidBMIIdException::new);
         bmi.setHeight(height);
         bmi.setWeight(weight);
+        bmi.setCalculate(height/(weight*weight));
         repository.save(bmi);
         return bmi;
     }
