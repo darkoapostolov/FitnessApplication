@@ -12,16 +12,16 @@
         /*border-radius: 15px;*/
         height: 280px;
         width: 280px;
-        background-color: #222222;
-        /*background-image: url("https://images.assetsdelivery.com/compings_v2/natalia5988/natalia59881801/natalia5988180100024.jpg");*/
+        /*background-color: #222222;*/
+        background-image: url("https://pngimg.com/uploads/vinyl/vinyl_PNG63.png");
         background-size: cover;
     }
 
     .spDiv:hover{
         box-shadow: 7px 10px 14px #666666;
         border-radius: 5px;
-        height: 300px;
-        width: 300px;
+        height: 310px;
+        width: 310px;
     }
 
     .imgSp{
@@ -51,7 +51,6 @@
     h5{
         text-align: center;
         font-size: 20px;
-        color: white;
     }
     li{
         padding-bottom: 5px;
@@ -65,7 +64,7 @@
                 <li>
                     <div class="spDiv rounded-circle">
                         <br>
-                        <h5 class="fw-bold"><th:block th:text="${spLink.getName()}"></th:block></h5>
+                        <h5 style="color: white; margin-top: 20px" class="fw-bold"><th:block th:text="${spLink.getName()}"></th:block></h5>
                         <img class="imgSp rounded-circle" th:src="${spLink.getImage()}">
                         <div class="buttonSp">
                             <a class="btn btn-outline-light btn1" target="_blank" th:href="${spLink.getLink()}">Start Listening</a>

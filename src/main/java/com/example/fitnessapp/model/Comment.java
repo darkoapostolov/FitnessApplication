@@ -17,7 +17,7 @@ public class Comment {
 
     private String content;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.PERSIST)
     Exercise exercise;
 
     public Comment(User user, String content, Exercise exercise) {

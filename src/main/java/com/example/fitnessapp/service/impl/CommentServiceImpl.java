@@ -46,8 +46,8 @@ public class CommentServiceImpl implements CommentService {
     public Comment create(User user, String content, Exercise exercise) {
         Comment comment = new Comment(user, content, exercise);
         exercise.getComments().add(comment);
-        exerciseService.save(exercise);
         repository.save(comment);
+        exerciseService.save(exercise);
         return comment;
     }
 

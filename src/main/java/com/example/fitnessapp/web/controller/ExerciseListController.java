@@ -76,6 +76,7 @@ public class ExerciseListController {
     @GetMapping("/exercise/{id}/details/")
     public String detailsExercise(@PathVariable Long id, Model model) throws InvalidExerciseIdException {
         Exercise exercise = exerciseService.findById(id);
+        model.addAttribute("comments",exercise.getComments());
         model.addAttribute("exercise", exercise);
         model.addAttribute("spLinks", spotifyLinkService.findAll());
         model.addAttribute("bodyContent", "details-exercise");

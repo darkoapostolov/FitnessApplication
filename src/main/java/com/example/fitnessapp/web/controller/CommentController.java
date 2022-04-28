@@ -23,14 +23,15 @@ public class CommentController {
         this.userService = userService;
     }
 
-    @GetMapping("add-comment-form")
-    public String addComment(Model model, String user, String content, Long exercise){
+    @GetMapping("add-comment-form/{exercise}")
+    public String addComment(@PathVariable Long exercise, Model model) throws InvalidExerciseIdException {
+        model.addAttribute("exerciseId", exercise);
         model.addAttribute("bodyContent", "add-comment-form");
         return "master-template";
     }
 
     @GetMapping("edit-comment/{id}")
-    public String editComment(Model model,@PathVariable Long id, String user, String content, Long exercise) throws InvalidCommentIdException {
+    public String editComment(Model model,@PathVariable Long id) throws InvalidCommentIdException {
         model.addAttribute("comment", commentService.findById(id) );
         model.addAttribute("bodyContent", "add-comment-form");
         return "master-template";

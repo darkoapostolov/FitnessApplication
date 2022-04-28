@@ -17,7 +17,16 @@
         <b>Likes:</b><p th:text=" ${exercise.getLikes()}"></p>
         <b>Dislikes: </b><p th:text=" ${exercise.getDislikes()}"></p>
     </section>
-    <form action="/comment/add-comment-form" method="GET">
+    <form th:action="@{'/comment/add-comment-form/{exercise}' (exercise=${exercise.getId()})}" method="GET">
     <button class="btn btn-primary" type="submit">Add Comment</button>
     </form>
+    <div>
+        <ul th:each="comment: ${comments}">
+            <li>
+                <h1 th:text="${comment.getUser().getUsername()}"></h1>
+                <div th:text="${comment.getContent()}">
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>
