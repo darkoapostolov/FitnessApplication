@@ -1,6 +1,5 @@
 package com.example.fitnessapp.service;
 
-import com.example.fitnessapp.model.BMI;
 import com.example.fitnessapp.model.ExerciseSchedule;
 import com.example.fitnessapp.model.Role;
 import com.example.fitnessapp.model.User;

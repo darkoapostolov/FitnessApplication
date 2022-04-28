@@ -5,6 +5,7 @@ import com.example.fitnessapp.model.Exercise;
 import com.example.fitnessapp.model.User;
 import com.example.fitnessapp.model.exceptions.InvalidCommentIdException;
 import com.example.fitnessapp.repository.CommentRepository;
+import com.example.fitnessapp.repository.ExerciseRepository;
 import com.example.fitnessapp.service.CommentService;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +15,11 @@ import java.util.List;
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository repository;
+    private final ExerciseRepository exerciseService;
 
-    public CommentServiceImpl(CommentRepository repository) {
+    public CommentServiceImpl(CommentRepository repository, ExerciseRepository exerciseService) {
         this.repository = repository;
+        this.exerciseService = exerciseService;
     }
 
     @Override
@@ -42,6 +45,8 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment create(User user, String content, Exercise exercise) {
         Comment comment = new Comment(user, content, exercise);
+        exercise.getComments().add(comment);
+        exerciseService.save(exercise);
         repository.save(comment);
         return comment;
     }
@@ -52,6 +57,7 @@ public class CommentServiceImpl implements CommentService {
         comment.setUser(user);
         comment.setContent(content);
         comment.setExercise(exercise);
+        exerciseService.save(exercise);
         repository.save(comment);
         return comment;
     }

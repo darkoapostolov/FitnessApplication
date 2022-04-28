@@ -2,7 +2,6 @@ package com.example.fitnessapp.web.controller;
 
 import com.example.fitnessapp.model.Comment;
 import com.example.fitnessapp.model.Exercise;
-//import com.example.fitnessapp.model.User;
 import com.example.fitnessapp.model.enumerations.Type;
 import com.example.fitnessapp.model.enumerations.Weights;
 import com.example.fitnessapp.model.exceptions.InvalidExerciseIdException;
@@ -10,12 +9,10 @@ import com.example.fitnessapp.service.ExerciseScheduleService;
 import com.example.fitnessapp.service.ExerciseService;
 import com.example.fitnessapp.service.SpotifyLinkService;
 import lombok.SneakyThrows;
-//import org.springframework.security.core.Authentication;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;

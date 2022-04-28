@@ -3,8 +3,6 @@ package com.example.fitnessapp.model;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.security.core.GrantedAuthority;
-//import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -26,8 +24,8 @@ public class User implements UserDetails {
     @OneToMany
     private List<ExerciseSchedule> exerciseSchedules;
 
-    @OneToOne
-    private ExerciseSchedule favorites;
+    @OneToMany
+    private List<Comment> comments;
 
     @OneToOne
     private BMI BMI;
@@ -40,11 +38,11 @@ public class User implements UserDetails {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    public User(String username, String password, List<ExerciseSchedule> exerciseSchedules, ExerciseSchedule favorites, Role role, BMI BMI) {
+    public User(String username, String password, List<ExerciseSchedule> exerciseSchedules, List<Comment> comments, Role role, BMI BMI) {
         this.username = username;
         this.password = password;
         this.exerciseSchedules = exerciseSchedules;
-        this.favorites = favorites;
+        this.comments=comments;
         this.BMI = BMI;
         this.role=role;
     }

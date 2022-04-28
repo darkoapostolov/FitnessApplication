@@ -1,4 +1,4 @@
-package com.example.fitnessapp.config;//package com.example.fitnessapp.config;
+package com.example.fitnessapp.config;
 
 import com.example.fitnessapp.service.UserService;
 import org.springframework.security.authentication.AuthenticationProvider;

@@ -1,13 +1,9 @@
 package com.example.fitnessapp.web.controller;
 
-
 import com.example.fitnessapp.model.User;
 import com.example.fitnessapp.model.exceptions.InvalidUserCredentialsException;
-//import com.example.fitnessapp.service.AuthService;
 import com.example.fitnessapp.service.AuthService;
-import com.example.fitnessapp.service.SpotifyLinkService;
 import com.example.fitnessapp.service.impl.AuthServiceImpl;
-import com.example.fitnessapp.service.impl.SpotifyLinkServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

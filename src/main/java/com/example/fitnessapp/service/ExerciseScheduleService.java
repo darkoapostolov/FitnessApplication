@@ -2,7 +2,6 @@ package com.example.fitnessapp.service;
 
 import com.example.fitnessapp.model.Exercise;
 import com.example.fitnessapp.model.ExerciseSchedule;
-import com.example.fitnessapp.model.User;
 import com.example.fitnessapp.model.enumerations.Type;
 import com.example.fitnessapp.model.enumerations.Weights;
 import com.example.fitnessapp.model.exceptions.InvalidExerciseIdException;

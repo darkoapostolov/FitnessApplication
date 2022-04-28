@@ -11,10 +11,7 @@ import com.example.fitnessapp.repository.ExerciseScheduleRepository;
 import com.example.fitnessapp.service.ExerciseScheduleService;
 import com.example.fitnessapp.service.ExerciseService;
 import com.example.fitnessapp.service.UserService;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service

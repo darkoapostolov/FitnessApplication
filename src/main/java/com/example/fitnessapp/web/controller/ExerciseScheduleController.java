@@ -8,13 +8,11 @@ import com.example.fitnessapp.model.exceptions.InvalidExerciseIdException;
 import com.example.fitnessapp.model.exceptions.InvalidExerciseScheduleIdException;
 import com.example.fitnessapp.service.ExerciseScheduleService;
 import com.example.fitnessapp.service.ExerciseService;
-//import org.springframework.security.access.prepost.PreAuthorize;
 import com.example.fitnessapp.service.UserService;
 import com.example.fitnessapp.service.impl.SpotifyLinkServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;

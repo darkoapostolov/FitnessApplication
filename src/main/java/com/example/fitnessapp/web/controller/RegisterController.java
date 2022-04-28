@@ -1,7 +1,6 @@
 package com.example.fitnessapp.web.controller;
 
 import com.example.fitnessapp.model.Role;
-import com.example.fitnessapp.model.exceptions.InvalidArgumentsException;
 import com.example.fitnessapp.service.AuthService;
 import com.example.fitnessapp.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -36,9 +35,6 @@ public class RegisterController {
     @PostMapping
     public String register(@RequestParam String username,
                            @RequestParam String password,
-//                           @RequestParam String repeatedPassword,
-//                           @RequestParam String name,
-//                           @RequestParam String surname,
                            @RequestParam Role role) {
         this.userService.register(username, password, role);
         return "redirect:/login";
