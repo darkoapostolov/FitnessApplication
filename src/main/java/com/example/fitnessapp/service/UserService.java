@@ -12,4 +12,5 @@ public interface UserService extends UserDetailsService {
     User register (String username, String password, Role role);
     List<ExerciseSchedule> listSchedules(String username);
     void addExSchedule(ExerciseSchedule exerciseSchedule, String username);
+    User findByUsername(String username);
 }

@@ -98,18 +98,35 @@
                         <div class="exBlock">
                                 <h5 th:text="${exercise.getName()}"></h5>
                                 <img th:src="${exercise.getImage()}">
-<!--                                <li th:text="${exercise.getReps()}"></li>-->
-                                <b style="position: absolute">Difficulty: </b><p style="text-align: right;)"><th:block th:text=" ${exercise.getDifficulty()}"></th:block></p>
-<!--                                <li th:text="${exercise.getType()}"></li>-->
-<!--                                <li th:text="${exercise.getLikes()}"></li>-->
-<!--                                <li th:text="${exercise.getDislikes()}"></li>-->
+                            <div style="display: flex;">
+                            <li>
+                                <form th:action="@{'/exercise-list/exercise/{id}/like/' (id=${exercise.getId()})}"
+                                      th:method="POST">
+                                    <button type="submit"
+                                            class="btn btn-sm btn-primary">
+                                        <i class="fa fa-trash">Like</i>
+                                    </button>
+                                </form>
+                            </li>
+                                <p style="font-weight: bold">[ <th:block th:text=" ${exercise.getLikes()}"></th:block> ]</p>
+                            <li style="float: right">
+                                <form th:action="@{'/exercise-list/exercise/{id}/dislike/' (id=${exercise.getId()})}"
+                                      th:method="POST">
+                                    <button type="submit"
+                                            class="btn btn-sm btn-danger">
+                                        <i class="fa fa-trash">Dislike</i>
+                                    </button>
+                                </form>
+                            </li>
+                            <p style="font-weight: bold">[ <th:block th:text=" ${exercise.getDislikes()}"></th:block> ]</p>
+                            </div>
                                 <div class="buttonBlock">
                                     <li>
                                     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                                         <form th:if="${id==null}" th:action="@{'/exercise-list/exercise/{id}/delete/' (id=${exercise.getId()})}"
                                               th:method="DELETE">
                                             <button type="submit"
-                                                    class="btn btn-sm btn-danger delete-product">
+                                                    class="btn btn-sm btn-danger">
                                                 <i class="fa fa-trash">Delete</i>
                                             </button>
                                         </form>
@@ -118,7 +135,7 @@
                                     <li>
                                     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                                         <a th:if="${id==null}" th:href="@{'/exercise-list/exercise/{id}/edit/' (id=${exercise.getId()})}"
-                                           class="btn btn-sm btn-warning edit-product">
+                                           class="btn btn-sm btn-warning">
                                             <i class="fa fa-trash">Edit</i>
                                         </a>
                                     </th:block>
@@ -139,7 +156,6 @@
                                             </a>
                                         </th:block>
                                     </li>
-
                                 </div>
                         </div>
                         </div>

@@ -99,4 +99,24 @@ public class ExerciseServiceImpl implements ExerciseService {
         List<Exercise> list = repository.findAll();
         return (List<Exercise>) list.stream().filter(r->r.getType().equals(type));
     }
+
+    @Override
+    public int like(Long id) throws InvalidExerciseIdException {
+        Exercise exercise = repository.findById(id).orElseThrow(InvalidExerciseIdException::new);
+        int likes = exercise.getLikes();
+        likes+=1;
+        exercise.setLikes(likes);
+        repository.save(exercise);
+        return likes;
+    }
+
+    @Override
+    public int dislike(Long id) throws InvalidExerciseIdException {
+        Exercise exercise = repository.findById(id).orElseThrow(InvalidExerciseIdException::new);
+        int dislikes = exercise.getDislikes();
+        dislikes+=1;
+        exercise.setDislikes(dislikes);
+        repository.save(exercise);
+        return dislikes;
+    }
 }

@@ -23,4 +23,6 @@ public interface ExerciseService {
     Exercise delete(Long id) throws InvalidExerciseIdException;
     Exercise addComment (Long id, Comment comment) throws InvalidExerciseIdException;
     List<Exercise> listByType(Type type);
+    int like(Long id) throws InvalidExerciseIdException;
+    int dislike(Long id) throws InvalidExerciseIdException;
 }

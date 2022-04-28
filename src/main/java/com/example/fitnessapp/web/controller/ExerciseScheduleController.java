@@ -36,13 +36,19 @@ public class ExerciseScheduleController {
 
 
     @GetMapping
-    public String getSchedulesPage(@RequestParam(required = false) String error, Model model) {
+    public String getSchedulesPage(@RequestParam(required = false) String error, Model model, HttpServletRequest request) {
         if (error != null && !error.isEmpty()) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
         }
+        List<ExerciseSchedule> scheduleList = new ArrayList<>();
         List<ExerciseSchedule> schedules = this.exerciseScheduleService.listAll();
-        model.addAttribute("schedules", schedules);
+        for (int i=0;i<schedules.size();i++){
+            if (schedules.get(i).getUsername().equals("Darko")){
+                scheduleList.add(schedules.get(i));
+            }
+        }
+        model.addAttribute("schedules", scheduleList);
         model.addAttribute("spLinks", service.findAll());
         model.addAttribute("bodyContent", "schedule-list");
         return "master-template";
@@ -50,6 +56,12 @@ public class ExerciseScheduleController {
 
     @DeleteMapping("/delete/{id}")
     public String deleteSchedule(@PathVariable Long id) throws InvalidExerciseScheduleIdException {
+        this.exerciseScheduleService.delete(id);
+        return "redirect:/schedules";
+    }
+
+    @DeleteMapping("/user-delete/{id}")
+    public String userDeleteSchedule(@PathVariable Long id) throws InvalidExerciseScheduleIdException {
         this.exerciseScheduleService.delete(id);
         return "redirect:/schedules";
     }
@@ -62,6 +74,16 @@ public class ExerciseScheduleController {
         model.addAttribute("spLinks", service.findAll());
             model.addAttribute("bodyContent", "add-exercise-schedule");
             return "master-template";
+    }
+
+    @GetMapping("/user-edit-schedule/{id}")
+    public String userEditSchedulePage(@PathVariable Long id, Model model) throws InvalidExerciseScheduleIdException {
+        ExerciseSchedule schedule = this.exerciseScheduleService.findById(id);
+        model.addAttribute("schedule", schedule);
+        model.addAttribute("types", Type.values());
+        model.addAttribute("spLinks", service.findAll());
+        model.addAttribute("bodyContent", "add-exercise-schedule");
+        return "master-template";
     }
 
     @GetMapping("/schedule/{id}/exercise-list")
@@ -159,8 +181,13 @@ public class ExerciseScheduleController {
     }
 
     @GetMapping("userSchedules")
-    public String userSchedules(Model model, HttpServletRequest request){
-        model.addAttribute("schedules",userService.listSchedules(request.getRemoteUser()));
+    public String userSchedules(Model model, HttpServletRequest request) throws InvalidExerciseScheduleIdException {
+        List<ExerciseSchedule> exerciseSchedules = new ArrayList<>();
+        List<ExerciseSchedule> exerciseSchedules1 = exerciseScheduleService.listAll();
+        for (int i=0;i<exerciseSchedules1.size();i++){
+            exerciseSchedules = exerciseScheduleService.ListByUser(request.getRemoteUser(),exerciseSchedules1.get(i).getId());
+        }
+        model.addAttribute("schedules",exerciseSchedules);
         model.addAttribute("bodyContent", "user-schedules");
         return "master-template";
     }

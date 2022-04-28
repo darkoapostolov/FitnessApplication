@@ -102,4 +102,16 @@ public class ExerciseListController {
         model.addAttribute("bodyContent", "add-exercises");
         return "master-template";
     }
+
+    @PostMapping("/exercise/{id}/like/")
+    public String likeExercise(@PathVariable Long id) throws InvalidExerciseIdException {
+        exerciseService.like(id);
+        return "redirect:/exercise-list";
+    }
+
+    @PostMapping("/exercise/{id}/dislike/")
+    public String dislikeExercise(@PathVariable Long id) throws InvalidExerciseIdException {
+        exerciseService.dislike(id);
+        return "redirect:/exercise-list";
+    }
 }

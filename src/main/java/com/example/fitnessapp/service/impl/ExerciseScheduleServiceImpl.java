@@ -66,7 +66,6 @@ public class ExerciseScheduleServiceImpl implements ExerciseScheduleService {
         return exerciseSchedule;
     }
 
-    //String name, int reps, int difficulty, Type type, String description, String image, List<Comment> comments, int likes, int dislikes
     @Override
     public ExerciseSchedule delete(Long id) throws InvalidExerciseScheduleIdException {
         ExerciseSchedule exerciseSchedule = repository.findById(id).orElseThrow(InvalidExerciseScheduleIdException::new);
@@ -93,7 +92,12 @@ public class ExerciseScheduleServiceImpl implements ExerciseScheduleService {
     }
 
     @Override
-    public List<ExerciseSchedule> ListByUser(String username) {
-        return userService.listSchedules(username);
+    public List<ExerciseSchedule> ListByUser(String username, Long id) throws InvalidExerciseScheduleIdException {
+        User user = userService.findByUsername(username);
+        ExerciseSchedule exerciseSchedule = repository.findById(id).orElseThrow(InvalidExerciseScheduleIdException::new);
+        if (user.getUsername().equals(exerciseSchedule.getUsername())) {
+            user.getExerciseSchedules().add(exerciseSchedule);
+        }
+        return user.getExerciseSchedules();
     }
 }

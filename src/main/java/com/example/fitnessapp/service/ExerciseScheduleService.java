@@ -21,5 +21,5 @@ public interface ExerciseScheduleService {
     ExerciseSchedule delete(Long id) throws InvalidExerciseScheduleIdException;
     ExerciseSchedule addExercise(Long id, Long idEx) throws InvalidExerciseScheduleIdException, InvalidExerciseIdException;
     ExerciseSchedule removeExercise(Long id, Long idEx) throws InvalidExerciseScheduleIdException, InvalidExerciseIdException;
-    List<ExerciseSchedule> ListByUser(String username);
+    List<ExerciseSchedule> ListByUser(String username, Long id) throws InvalidExerciseScheduleIdException;
 }
