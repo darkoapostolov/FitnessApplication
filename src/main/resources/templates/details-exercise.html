@@ -16,5 +16,8 @@
         <b>Description: </b><p><th:block th:text=" ${exercise.getDescription()}"></th:block></p>
         <b>Likes:</b><p th:text=" ${exercise.getLikes()}"></p>
         <b>Dislikes: </b><p th:text=" ${exercise.getDislikes()}"></p>
-
+    </section>
+    <form action="/comment/add-comment-form" method="GET">
+    <button class="btn btn-primary" type="submit">Add Comment</button>
+    </form>
 </div>
