@@ -12,4 +12,5 @@ public interface UserService extends UserDetailsService {
     List<ExerciseSchedule> listSchedules(String username);
     void addExSchedule(ExerciseSchedule exerciseSchedule, String username);
     User findByUsername(String username);
+    void update(User user);
 }

@@ -7,8 +7,11 @@ import com.example.fitnessapp.model.exceptions.InvalidCommentIdException;
 import com.example.fitnessapp.repository.CommentRepository;
 import com.example.fitnessapp.repository.ExerciseRepository;
 import com.example.fitnessapp.service.CommentService;
+import org.h2.expression.Format;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -45,6 +48,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment create(User user, String content, Exercise exercise) {
         Comment comment = new Comment(user, content, exercise);
+        LocalDateTime dateTime = LocalDateTime.now();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(String.valueOf(dateTime.getDayOfMonth())+"."+String.valueOf(dateTime.getMonthValue())+"."+String.valueOf(dateTime.getYear())+"\n"+String.valueOf(dateTime.getHour())+":"+String.valueOf(dateTime.getMinute())+":"+String.valueOf(dateTime.getSecond()));
+        comment.setDate(stringBuilder.toString());
         exercise.getComments().add(comment);
         repository.save(comment);
         exerciseService.save(exercise);
@@ -53,7 +60,11 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment edit(Long id, User user, String content, Exercise exercise) throws InvalidCommentIdException {
+        LocalDateTime dateTime = LocalDateTime.now();;
         Comment comment = repository.findById(id).orElseThrow(InvalidCommentIdException::new);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(String.valueOf(dateTime.getDayOfMonth())+"."+String.valueOf(dateTime.getMonthValue())+"."+String.valueOf(dateTime.getYear())+"\n"+String.valueOf(dateTime.getHour())+":"+String.valueOf(dateTime.getMinute())+":"+String.valueOf(dateTime.getSecond()));
+        comment.setDate(stringBuilder.toString());
         comment.setUser(user);
         comment.setContent(content);
         comment.setExercise(exercise);

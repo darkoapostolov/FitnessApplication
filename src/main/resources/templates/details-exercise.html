@@ -3,6 +3,32 @@
         img{
             height: 500px;
         }
+        .comments-list{
+            list-style: none;
+        }
+        .comments{
+            box-shadow: 2px 5px 5px #888888;
+            width: 30%;
+            border: 1px solid gray;
+            border-radius: 10px;
+        }
+        .commentContent{
+            padding: 5px;
+        }
+        .hr{
+            width: 70%;
+        }
+        .commentTime{
+            font-size: 12px;
+            color: darkgray;
+            padding: 3px;
+            margin: 5px;
+            text-align: right;
+            font-style: italic;
+        }
+        .commentButtons{
+            display: flex;
+        }
     </style>
     <section class="jumbotron text-center">
         <div class="container">
@@ -17,14 +43,34 @@
         <b>Likes:</b><p th:text=" ${exercise.getLikes()}"></p>
         <b>Dislikes: </b><p th:text=" ${exercise.getDislikes()}"></p>
     </section>
-    <form th:action="@{'/comment/add-comment-form/{exercise}' (exercise=${exercise.getId()})}" method="GET">
-    <button class="btn btn-primary" type="submit">Add Comment</button>
-    </form>
-    <div>
-        <ul th:each="comment: ${comments}">
+    <div class="container">
+        <form th:action="@{'/comment/add-comment-form/{exercise}' (exercise=${exercise.getId()})}" method="GET">
+            <button class="btn btn-primary" type="submit">Add Comment</button>
+        </form>
+        <ul class="comments-list" th:each="comment: ${comments}">
+            <br>
             <li>
-                <h1 th:text="${comment.getUser().getUsername()}"></h1>
-                <div th:text="${comment.getContent()}">
+                <div class="h4" th:text="${comment.getUser().getUsername()}"></div>
+                <div class="comments">
+                <div class="commentContent" th:text="${comment.getContent()}"></div>
+                    <hr class="hr">
+                <div class="commentTime" th:text="${comment.getDate()}"></div>
+                </div>
+                <div th:if="${#request.getRemoteUser()}==${comment.getUser().getUsername()}" class="commentButtons">
+                <form th:action="@{'/comment/delete/'+${comment.getId()}+'/'+${exercise.getId()}}"
+                      th:method="DELETE">
+                    <button type="submit"
+                            class="btn btn-sm btn-danger">
+                        <i class="fa fa-trash">Delete</i>
+                    </button>
+                </form>
+                <form th:action="@{'/comment/edit-comment/'+${comment.getId()}+'/'+${exercise.getId()}}"
+                      th:method="GET">
+                    <button type="submit"
+                            class="btn btn-sm btn-warning">
+                        <i class="fa fa-trash">Edit</i>
+                    </button>
+                </form>
                 </div>
             </li>
         </ul>

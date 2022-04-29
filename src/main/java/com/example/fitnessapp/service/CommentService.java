@@ -6,6 +6,7 @@ import com.example.fitnessapp.model.User;
 import com.example.fitnessapp.model.exceptions.InvalidCommentIdException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service

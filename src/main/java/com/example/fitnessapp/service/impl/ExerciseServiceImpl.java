@@ -119,4 +119,9 @@ public class ExerciseServiceImpl implements ExerciseService {
         repository.save(exercise);
         return dislikes;
     }
+
+    @Override
+    public void update(Exercise exercise) {
+        repository.save(exercise);
+    }
 }

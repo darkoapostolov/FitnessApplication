@@ -11,13 +11,14 @@ public class Comment {
     @GeneratedValue
     private Long id;
 
+    private String date;
 
     @OneToOne
     private User user;
 
     private String content;
 
-    @ManyToOne(cascade=CascadeType.PERSIST)
+    @ManyToOne
     Exercise exercise;
 
     public Comment(User user, String content, Exercise exercise) {

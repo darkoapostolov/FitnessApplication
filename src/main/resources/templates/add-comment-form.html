@@ -1,19 +1,25 @@
-
+<style>
+    #content{
+        width: 200%;
+        height: 100px;
+        border-radius: 10px;
+    }
+</style>
     <section class="jumbotron text-center">
         <div class="container">
-            <h1 class="jumbotron-heading">FITNESS APP</h1>
+            <h1 class="jumbotron-heading">CHAD APP</h1>
         </div>
     </section>
 
     <div class="container">
         <div class="row">
-            <div class="col-md-5">
+            <div>
                 <form action="/comment/add-edit" method="POST">
                     <input id="id" type="hidden" name="id" th:value="(${comment} != null ? ${comment.getId()} : '')">
                     <input name="user" id="user" th:value="${#request.getRemoteUser()}" type="hidden">
                     <input id='content' type='text' name='content' th:value="(${comment} != null ? ${comment.getContent()} : '')"/><br/>
                     <input id="exercise" type="hidden" name="exercise" th:value="${exerciseId}">
-                    <input type='submit' name="submit" value='Post'/>
+                    <input class="btn btn-primary" type='submit' name="submit" value='Post'/>
                 </form>
             </div>
         </div>

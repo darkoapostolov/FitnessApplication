@@ -1,40 +1,133 @@
+<style>
+    .bmiUl {
+        display: inline-grid;
+        grid-auto-columns: 100%;
+        list-style: none;
+    }
 
-    <section class="jumbotron text-center">
-        <div class="container">
-            <h1 class="jumbotron-heading">FITNESS APP</h1>
-        </div>
-    </section>
+    .div1{
+        overflow: auto;
+        white-space: nowrap;
+    }
 
+    .underweight {
+        height: 100%;
+        width: 100%;
+        background-color: yellow;
+        box-shadow: 2px 5px 7px #888888;
+        border: 1px solid gray;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .normal {
+        height: 100%;
+        width: 100%;
+        background-color: lightgreen;
+        box-shadow: 2px 5px 7px #888888;
+        border: 1px solid gray;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .overweight {
+        height: 100%;
+        width: 100%;
+        background-color: coral;
+        box-shadow: 2px 5px 7px #888888;
+        border: 1px solid gray;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .obese {
+        height: 100%;
+        width: 100%;
+        background-color: red;
+        box-shadow: 2px 5px 7px #888888;
+        border: 1px solid gray;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .bmiDate{
+        text-align: right;
+        font-size: 12px;
+        font-style: italic;
+    }
+</style>
+
+<section class="jumbotron text-center">
     <div class="container">
-        <div class="row">
-            <div class="col-md-5">
-                <form action="/bmi" method="GET">
-                    <div class="form-group">
-                        <label for="weight">Weight (kg):</label>
-                        <input type="text"
-                               class="form-control"
-                               id="weight"
-                               name="weight"
-                               th:value="(${BMI} != null ? ${BMI.getWeight()} : '')"
-                               required
-                               placeholder="Weight">
-                    </div>
-                    <div class="form-group">
-                        <label for="height">Height (cm):</label>
-                        <input type="text"
-                               class="form-control"
-                               id="height"
-                               name="height"
-                               th:value="(${BMI} != null ? ${BMI.getHeight()} : '')"
-                               placeholder="Height">
-                    </div>
-                    <div>
-                    </div>
-                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
-                </form>
-                    <a type="button" class="btn btn-primary" href="/home">Back</a>
-                <br>
-                <div><th:block th:value="${calc}"></th:block></div>
-            </div>
+        <h1 class="jumbotron-heading">FITNESS APP</h1>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <form action="/bmi/calculate" method="POST">
+                <div class="form-group">
+                    <label for="weight">Weight (kg):</label>
+                    <input type="text"
+                           class="form-control"
+                           id="weight"
+                           name="weight"
+                           required
+                           placeholder="Weight">
+                </div>
+                <div class="form-group">
+                    <label for="height">Height (cm):</label>
+                    <input type="text"
+                           class="form-control"
+                           id="height"
+                           name="height"
+                           placeholder="Height">
+                </div>
+                <div>
+                </div>
+                <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                <a type="button" class="btn btn-primary" href="/home">Back</a>
+            </form>
         </div>
     </div>
+    <br>
+            <div class="div1 container">
+            <ul class="bmiUl" th:each="bmi: ${bmis}">
+                <li class="bmiLi">
+                    <div class="underweight" th:if="${bmi.getCalculate()}<=18.5">
+                        <div class="h5">Underweight</div>
+                        <hr class="w-50">
+                        <div th:text="${bmi.getCalculate()}"></div>
+                        <hr class="w-50">
+                        <div class="bmiDate" th:text="${bmi.getDate()}"></div>
+                    </div>
+                    <div th:if="${bmi.getCalculate()}>18.5">
+                        <div class="normal" th:if="${bmi.getCalculate()}<=24.9">
+                            <div class="h5">Normal</div>
+                            <hr class="w-50">
+                            <div th:text="${bmi.getCalculate()}"></div>
+                            <hr class="w-50">
+                            <div class="bmiDate" th:text="${bmi.getDate()}"></div>
+                        </div>
+                    </div>
+                    <div th:if="${bmi.getCalculate()}>24.9">
+                        <div class="overweight" th:if="${bmi.getCalculate()}<=30">
+                            <div class="h5">Overweight</div>
+                            <hr class="w-50">
+                            <div th:text="${bmi.getCalculate()}"></div>
+                            <hr class="w-50">
+                            <div class="bmiDate" th:text="${bmi.getDate()}"></div>
+                        </div>
+                    </div>
+                    <div class="obese" th:if="${bmi.getCalculate()}>30">
+                        <div class="h5">Obese</div>
+                        <hr class="w-50">
+                        <div th:text="${bmi.getCalculate()}"></div>
+                        <hr class="w-50">
+                        <div class="bmiDate" th:text="${bmi.getDate()}"></div>
+                    </div>
+                </li>
+            </ul>
+            </div>
+</div>

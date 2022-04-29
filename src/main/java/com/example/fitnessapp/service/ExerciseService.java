@@ -25,4 +25,5 @@ public interface ExerciseService {
     List<Exercise> listByType(Type type);
     int like(Long id) throws InvalidExerciseIdException;
     int dislike(Long id) throws InvalidExerciseIdException;
+    void update(Exercise exercise);
 }

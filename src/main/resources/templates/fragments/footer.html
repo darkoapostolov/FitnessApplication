@@ -9,10 +9,8 @@
     .spDiv{
         box-shadow: 5px 8px 10px #888888;
         transition: 0.5s;
-        /*border-radius: 15px;*/
         height: 280px;
         width: 280px;
-        /*background-color: #222222;*/
         background-image: url("https://pngimg.com/uploads/vinyl/vinyl_PNG63.png");
         background-size: cover;
     }
@@ -29,7 +27,6 @@
         height: 130px;
         width: 130px;
         object-fit: cover;
-        /*border-radius: 15px;*/
         display: block;
         margin-left: auto;
         margin-right: auto;
@@ -37,13 +34,12 @@
     .spDiv:hover>.imgSp{
         height: 160px;
         width: 160px;
-        /*border-radius: 5px;*/
     }
     .buttonSp{
         text-align: center;
         margin-top: 2px;
     }
-    ul {
+    .ul {
         list-style: none;
         display: inline-grid;
         grid-auto-columns: 320px;
@@ -59,8 +55,14 @@
 <footer style="height: 30%;background-color: #eee;" class="text-black-50 mt-xl-5" xmlns:th="http://www.thymeleaf.org">
     <hr>
     <div style="margin-top: 35px" class="container">
+        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+            <a th:href="@{'/spotify/createForm/'}"
+               class="btn btn-sm btn-primary">
+                <i class="fa fa-trash">Add Playlist</i>
+            </a>
+        </th:block>
         <div id="spotifyLinks">
-            <ul th:each="spLink: ${spLinks}">
+            <ul class="ul" th:each="spLink: ${spLinks}">
                 <li>
                     <div class="spDiv rounded-circle">
                         <br>
@@ -70,6 +72,21 @@
                             <a class="btn btn-outline-light btn1" target="_blank" th:href="${spLink.getLink()}">Start Listening</a>
                         </div>
                     </div>
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                        <form th:action="@{'/spotify/delete/{id}' (id=${spLink.getId()})}"
+                              th:method="DELETE">
+                            <button type="submit"
+                                    class="btn btn-sm btn-danger">
+                                <i class="fa fa-trash">Delete</i>
+                            </button>
+                        </form>
+                    </th:block>
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{'/spotify/editForm/{id}' (id=${spLink.getId()})}"
+                           class="btn btn-sm btn-warning" th:method="DELETE">
+                            <i class="fa fa-trash">Edit</i>
+                        </a>
+                    </th:block>
                 </li>
 
             </ul>
@@ -95,13 +112,13 @@
                         <a class="nav-link active" href="/exercise-list">Exercises</a>
                     </li>
                     <li class="nav-item m-auto">
+                        <a class="nav-link active" href="/bmi">BMI Calculator</a>
+                    </li>
+                    <li class="nav-item m-auto">
                         <a class="nav-link active" href="/contact">Contact</a>
                     </li>
                     <li class="nav-item m-auto">
                         <a class="nav-link active" href="/about">About</a>
-                    </li>
-                    <li class="nav-item m-auto">
-                        <a class="nav-link active" href="/bmi">BMI Calculator</a>
                     </li>
                 </ul>
 

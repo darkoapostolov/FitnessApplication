@@ -24,11 +24,11 @@ public class User implements UserDetails {
     @OneToMany
     private List<ExerciseSchedule> exerciseSchedules;
 
-    @OneToMany
+    @OneToMany(cascade=CascadeType.PERSIST)
     private List<Comment> comments;
 
-    @OneToOne
-    private BMI BMI;
+    @OneToMany
+    private List<BMI> BMI;
 
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
@@ -38,7 +38,7 @@ public class User implements UserDetails {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    public User(String username, String password, List<ExerciseSchedule> exerciseSchedules, List<Comment> comments, Role role, BMI BMI) {
+    public User(String username, String password, List<ExerciseSchedule> exerciseSchedules, List<Comment> comments, Role role, List<BMI> BMI) {
         this.username = username;
         this.password = password;
         this.exerciseSchedules = exerciseSchedules;

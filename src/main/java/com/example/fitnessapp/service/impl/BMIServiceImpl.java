@@ -6,6 +6,8 @@ import com.example.fitnessapp.repository.BMIRepository;
 import com.example.fitnessapp.service.BMIService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class BMIServiceImpl implements BMIService {
 
@@ -23,25 +25,11 @@ public class BMIServiceImpl implements BMIService {
     @Override
     public BMI create(double height, double weight) {
         BMI bmi = new BMI(height,weight);
-        bmi.setCalculate(height/(weight*weight));
+        LocalDateTime dateTime = LocalDateTime.now();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(String.valueOf(dateTime.getDayOfMonth())+"."+String.valueOf(dateTime.getMonthValue())+"."+String.valueOf(dateTime.getYear())+"\n"+String.valueOf(dateTime.getHour())+":"+String.valueOf(dateTime.getMinute())+":"+String.valueOf(dateTime.getSecond()));
+        bmi.setDate(stringBuilder.toString());
         repository.save(bmi);
-        return bmi;
-    }
-
-    @Override
-    public BMI edit(Long id, double height, double weight) throws InvalidBMIIdException {
-        BMI bmi = repository.findById(id).orElseThrow(InvalidBMIIdException::new);
-        bmi.setHeight(height);
-        bmi.setWeight(weight);
-        bmi.setCalculate(height/(weight*weight));
-        repository.save(bmi);
-        return bmi;
-    }
-
-    @Override
-    public BMI delete(Long id) throws InvalidBMIIdException {
-        BMI bmi = repository.findById(id).orElseThrow(InvalidBMIIdException::new);
-        repository.delete(bmi);
         return bmi;
     }
 }

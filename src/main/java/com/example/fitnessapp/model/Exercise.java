@@ -29,7 +29,7 @@ public class Exercise {
 
     private String image;
 
-    @OneToMany(cascade=CascadeType.PERSIST)
+    @OneToMany(cascade=CascadeType.ALL)
     private List<Comment> comments;
 
     private int likes;
