@@ -51,7 +51,8 @@ public class CommentController {
         }else {
             commentService.create(userService.findByUsername(user), content, exerciseService.findById(exercise));
         }
-        return "redirect:/exercise-list";
+        String redirect = "redirect:/exercise-list/exercise/"+exercise+"/details/";
+        return redirect;
     }
 
     @DeleteMapping("delete/{id}/{exercise}")

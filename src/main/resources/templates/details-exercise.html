@@ -29,19 +29,34 @@
         .commentButtons{
             display: flex;
         }
+        #detail{
+            text-align: left;
+            background-color: white;
+            border-radius: 20px;
+            border: 1px solid black;
+            padding: 20px;
+            width: 70%;
+            margin: auto;
+        }
     </style>
     <section class="jumbotron text-center">
         <div class="container">
-            <h1 class="jumbotron-heading">FITNESS APP</h1>
+            <div class="text-left">
+            <a class="btn btn-primary" href="/exercise-list">Back</a>
+            </div>
+            <h1 class="jumbotron-heading">CHAD APP</h1>
             <h3 class="jumbotron-heading" th:text="${exercise.getName()}"></h3>
         </div>
         <p><img th:src=" ${exercise.getImage()}"></p>
+        <div id="detail">
         <b>Difficulty: </b><p><th:block th:text=" ${exercise.getDifficulty()}"></th:block></p>
         <b>Reps: </b><p><th:block th:text=" ${exercise.getReps()}"></th:block></p>
         <b>Type: </b><p><th:block th:text=" ${exercise.getType()}"></th:block></p>
+            <b>Weights: </b><p><th:block th:text=" ${exercise.getWeights()}"></th:block></p>
         <b>Description: </b><p><th:block th:text=" ${exercise.getDescription()}"></th:block></p>
         <b>Likes:</b><p th:text=" ${exercise.getLikes()}"></p>
         <b>Dislikes: </b><p th:text=" ${exercise.getDislikes()}"></p>
+        </div>
     </section>
     <div class="container">
         <form th:action="@{'/comment/add-comment-form/{exercise}' (exercise=${exercise.getId()})}" method="GET">

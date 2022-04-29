@@ -124,4 +124,59 @@ public class ExerciseServiceImpl implements ExerciseService {
     public void update(Exercise exercise) {
         repository.save(exercise);
     }
+
+    @Override
+    public List<Exercise> filterExercises(String name, Weights weights, int difficulty, Type type) {
+        if (name==""){
+            name=null;
+        }
+        if (name==null && weights==null && difficulty==0 && type==null){
+            return repository.findAll();
+        }
+        else if (name==null && weights==null && difficulty==0){
+            return repository.findAllByType(type);
+        }
+        else if (name==null && weights==null && type==null){
+            return repository.findAllByDifficulty(difficulty);
+        }
+        else if (name==null&& type==null && difficulty==0){
+            return repository.findAllByWeights(weights);
+        }
+        else if (type==null && difficulty==0 && weights==null){
+            return repository.findAllByNameLike("%"+name+"%");
+        }
+        else if (name==null && weights==null){
+            return repository.findAllByDifficultyAndType(difficulty, type);
+        }
+        else if (name==null && type==null){
+            return repository.findAllByWeightsAndDifficulty(weights, difficulty);
+        }
+        else if (weights==null&& type==null){
+            return repository.findAllByNameLikeAndDifficulty("%"+name+"%", difficulty);
+        }
+        else if (type==null && difficulty==0){
+            return repository.findAllByWeightsAndNameLike(weights, "%"+name+"%");
+        }
+        else if (weights==null && difficulty==0){
+            return repository.findAllByNameLikeAndType("%"+name+"%", type);
+        }
+        else if (name==null && difficulty==0){
+            return repository.findAllByWeightsAndType(weights, type);
+        }
+        else if (name==null){
+            return repository.findAllByWeightsAndDifficultyAndType(weights, difficulty, type);
+        }
+        else if (difficulty==0){
+            return repository.findAllByWeightsAndNameLikeAndType(weights, "%"+name+"%", type);
+        }
+        else if (type==null){
+            return repository.findAllByWeightsAndNameLikeAndDifficulty(weights, "%"+name+"%", difficulty);
+        }
+        else if (weights==null){
+            return repository.findAllByTypeAndDifficultyAndNameLike(type, difficulty, "%"+name+"%");
+        }
+        else{
+            return repository.findAllByWeightsAndDifficultyAndTypeAndNameLike(weights, difficulty, type, "%"+name+"%");
+        }
+    }
 }

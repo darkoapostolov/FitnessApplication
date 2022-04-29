@@ -25,6 +25,7 @@ public class Exercise {
     @Enumerated(value = EnumType.STRING)
     private Type type;
 
+    @Column(columnDefinition = "varchar(1000)")
     private String description;
 
     private String image;

@@ -65,11 +65,38 @@
             background: lightgray;
             transition: height 0.3s, width 0.3s;
         }
+        #search{
+            display: flex;
+            float: right;
+        }
+        select{
+            border-radius: 5px;
+        }
+        input{
+            border-radius: 5px;
+        }
+        #type{
+            float: right;
+        }
+        #weights{
+            float: right;
+            margin-right: 15px;
+            display: flex;
+        }
+        #weights2{
+            margin: 3px;
+        }
+        #filter{
+            float: right;
+        }
 
     </style>
 
     <section class="jumbotron text-center">
         <div class="container">
+            <div th:if="${id!=null}" class="text-left">
+                <a class="btn btn-primary" href="/schedules">Back</a>
+            </div>
             <h1 class="jumbotron-heading">CHAD APP</h1>
             <h3 class="jumbotron-heading">Exercises</h3>
         </div>
@@ -80,15 +107,36 @@
 
     <div class="container mb-4">
         <div class="row">
-            <div class="col-12" th:if="${exercises.size() > 0}">
-                <div class="table-responsive">
+            <div class="col-12">
+                <div>
+                    <div th:if="${id==null}">
                     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                    <div th:if="${id==null}" id="addButton">
+                    <div id="addButton">
                         <a href="/exercise-list/add-form">Add Exercise</a>
                     </div>
                     </th:block>
-                    <br>
-                    <ul th:each="exercise : ${exercises}" class="cart-item">
+                    <form>
+                        <div id="search">
+                            <div><b>Name: </b><input placeholder="Name" name="name"></div>
+                        <div><b>Difficulty: </b> <input placeholder="Difficulty" name="difficulty"></div>
+                        <br>
+                        <br>
+                        <div id="type">
+                            <b>Type: </b>
+                            <select name="type">
+                            <option value="">All</option>
+                            <option th:each="type: ${type}" th:value="${type}" th:text="${type}"></option>
+                        </select>
+                        </div>
+                        <div id="weights">
+                            <b>Weights: </b><br>
+                        <div id="weights2" th:each="weight: ${weights}"><input type="radio" name="weights" th:value="${weight}"><th:block th:text="${weight}"></th:block></div>
+                        </div>
+                            <input value="Filter" type="submit" id="filter" class="btn btn-dark">
+                        </div>
+                    </form>
+                    </div>
+                    <ul  th:each="exercise : ${exercises}" class="cart-item">
 
                         <div>
                         <div class="exBlock">
@@ -145,7 +193,7 @@
                                     </th:block>
                                 </li>
                                     <li>
-                                        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                        <th:block th:if="${user}!='Darko'">
                                             <a th:if="${id!=null}" th:href="@{'/schedules/{ids}/removeFromSchedule/' (ids=${exercise.getId()})}"
                                                class="btn btn-sm btn-warning">
                                                 <i class="fa fa-trash">Remove</i>

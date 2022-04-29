@@ -8,6 +8,7 @@ import com.example.fitnessapp.model.exceptions.InvalidExerciseIdException;
 import com.example.fitnessapp.service.ExerciseScheduleService;
 import com.example.fitnessapp.service.ExerciseService;
 import com.example.fitnessapp.service.SpotifyLinkService;
+import com.example.fitnessapp.service.UserService;
 import lombok.SneakyThrows;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/exercise-list")
@@ -34,15 +37,26 @@ public class ExerciseListController {
     @SneakyThrows
     @GetMapping()
     public String getExerciseList(
-            @RequestParam(required = false) String error,
-            HttpServletRequest req,
-            Model model) {
+            @RequestParam(required = false) String error, String name, String type, Weights weights, String difficulty, HttpServletRequest req, Model model) {
         if (error != null && !error.isEmpty()) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
         }
+        int diff;
+        if (difficulty==null || difficulty==""){
+            diff=0;
+        }else {
+            diff = Integer.parseInt(difficulty);
+        }
+        List<Type> t2 = Arrays.stream(Type.values()).filter(t->t.name().equals(type)).collect(Collectors.toList());
+        if (t2.size()==0){
+            model.addAttribute("exercises", exerciseService.filterExercises(name, weights, diff, null));
+        }else {
+            model.addAttribute("exercises", exerciseService.filterExercises(name, weights, diff, t2.get(0)));
+        }
         model.addAttribute("spLinks", spotifyLinkService.findAll());
-        model.addAttribute("exercises", this.exerciseService.findAll());
+        model.addAttribute("weights", Weights.values());
+        model.addAttribute("type", Type.values());
         model.addAttribute("bodyContent", "exercise-list");
         return "master-template";
     }
@@ -96,6 +110,7 @@ public class ExerciseListController {
         Exercise exercise = this.exerciseService.findById(id);
         model.addAttribute("exercise", exercise);
         model.addAttribute("type", Type.values());
+        model.addAttribute("bool",Weights.values());
         model.addAttribute("spLinks", spotifyLinkService.findAll());
         model.addAttribute("bodyContent", "add-exercises");
         return "master-template";
@@ -112,4 +127,5 @@ public class ExerciseListController {
         exerciseService.dislike(id);
         return "redirect:/exercise-list";
     }
+
 }

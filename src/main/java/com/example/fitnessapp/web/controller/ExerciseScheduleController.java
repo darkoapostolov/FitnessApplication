@@ -87,8 +87,10 @@ public class ExerciseScheduleController {
     @GetMapping("/schedule/{id}/exercise-list")
     public String listExercises(@PathVariable Long id, Model model, HttpServletRequest request) throws InvalidExerciseIdException, InvalidExerciseScheduleIdException {
         List<Exercise> exercises = exerciseScheduleService.listExercises(id);
+        ExerciseSchedule exerciseSchedule = exerciseScheduleService.findById(id);
         model.addAttribute("id",id);
         request.getSession().setAttribute("id",id);
+        model.addAttribute("user", exerciseSchedule.getUsername());
         model.addAttribute("spotifyLinks", service.findAll());
         model.addAttribute("exercises", exercises);
         model.addAttribute("spLinks", service.findAll());
@@ -168,17 +170,17 @@ public class ExerciseScheduleController {
         for (int i=0;i<exId.size();i++) {
             this.exerciseScheduleService.addExercise(id, exId.get(i));
         }
-        return "redirect:/schedules";
+        return "redirect:/schedules/userSchedules";
     }
 
     @GetMapping("/{ids}/removeFromSchedule")
     public String removeFromSchedule(@PathVariable Long ids, HttpServletRequest request) throws InvalidExerciseIdException, InvalidExerciseScheduleIdException {
         Long id = Long.parseLong(String.valueOf(request.getSession().getAttribute("id")));
             this.exerciseScheduleService.removeExercise(id, ids);
-        return "redirect:/schedules";
+        return "redirect:/schedules/userSchedules";
     }
 
-    @GetMapping("userSchedules")
+    @GetMapping("/userSchedules")
     public String userSchedules(Model model, HttpServletRequest request) throws InvalidExerciseScheduleIdException {
         List<ExerciseSchedule> exerciseSchedules = new ArrayList<>();
         List<ExerciseSchedule> exerciseSchedules1 = exerciseScheduleService.listAll();

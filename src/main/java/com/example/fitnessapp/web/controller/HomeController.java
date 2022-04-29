@@ -24,6 +24,20 @@ public class HomeController {
         return "master-template";
     }
 
+    @GetMapping("/about")
+    public String getAboutPage(Model model) {
+        model.addAttribute("spLinks", service.findAll());
+        model.addAttribute("bodyContent", "about");
+        return "master-template";
+    }
+
+    @GetMapping("/contact")
+    public String getContactPage(Model model) {
+        model.addAttribute("spLinks", service.findAll());
+        model.addAttribute("bodyContent", "contact");
+        return "master-template";
+    }
+
     @GetMapping("/access_denied")
     public String getAccessDeniedPage(Model model) {
         model.addAttribute("spLinks", service.findAll());

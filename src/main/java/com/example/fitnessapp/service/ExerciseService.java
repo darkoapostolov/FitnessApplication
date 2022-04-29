@@ -26,4 +26,5 @@ public interface ExerciseService {
     int like(Long id) throws InvalidExerciseIdException;
     int dislike(Long id) throws InvalidExerciseIdException;
     void update(Exercise exercise);
+    List<Exercise> filterExercises(String name, Weights weights, int difficulty, Type type);
 }
